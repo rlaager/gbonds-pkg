@@ -1,0 +1,147 @@
+2004-12-23  Jim Evins  <evins@snaught.com>
+
+	* data/Makefile.am:
+		Added all historical redemption data files -- they get downloaded anyway,
+		the 1st time update is run.  Backed out previous @icondir@ change.
+	* data/gbonds.keys.in:
+		Backed out previous @icondir@ change.
+	* data/sb*.asc
+		Added all historical redemption data files.
+
+2004-12-22  Jim Evins  <evins@snaught.com>
+
+	* src/update.c: (read_remote_file_callback),
+	(close_remote_file_callback), (download_done):
+		Although the 2nd download still fails on FC2 (G2.6), it will not poison
+		the .gbonds directory with partial downloads.
+
+2004-12-17  Jim Evins  <evins@snaught.com>
+
+	* data/Makefile.am:
+		New rule for creating gbonds.keys: substitute @icondir@.
+	* data/gbonds.keys.in:
+		Removed a couple of fields,and prefixed the icon filename with @icondir@/.
+	
+2004-12-17  Jim Evins  <evins@snaught.com>
+
+	* gbonds.spec.in:
+		Updated.
+
+2004-12-17  Jim Evins  <evins@snaught.com>
+
+	* pixmaps/gbonds-application-x-gbonds.png:
+	* pixmaps/gbonds.png:
+	* pixmaps/gbonds_logo.png:
+		Renamed image files and checked in as binary.
+	* pixmaps/Makefile.am:
+		Renamed image files, added app_icon class of images.
+	* data/gbonds.desktop.in:
+	* data/gbonds.keys.in:
+		Refer to mime icon.
+	* src/gbonds.c:
+	* src/update.c:
+		Refer to app icon.
+
+2004-12-17  Jim Evins  <evins@snaught.com>
+
+	* src/update.c: (download_files), (read_remote_file_callback),
+	(close_remote_file_callback):
+		Code cleanup and additional debug points.
+
+2004-12-17  Jim Evins  <evins@snaught.com>
+
+	* src/update.c: (add_downloading_page), (download_files),
+	(open_remote_file_callback), (read_remote_file_callback),
+	(update_progress_bar):
+		Removed deprecated use of GtkProgress APIs.
+
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* Makefile.am:
+	* acinclude.m4:
+	* configure.in:
+		Screwing with build environment.
+	
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* src/debug.c: (gb_debug_init), (gb_debug):
+	* src/debug.h:
+		Updated debug module to the cleaner design used in the CVS version of
+		glabels, which is based on the similar module in the latest version of
+		gedit.
+	* src/gbonds.c: (main):
+		Updated initialization of debug module.
+
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* src/doc-sbw.c: (gb_doc_sbw_open):
+		Fixed to match prototype.
+
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* src/doc-xml.c: (xml_parse_doc):
+		Fixed to match prototype.
+
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* src/file.c: (gb_file_open), (open_response), (gb_file_import),
+	(import_response), (gb_file_save_as), (save_as_response):
+		Imported the wrong version of this file previously.  This one actually
+		has all the glabels artifacts removed.
+
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* src/doc.c: (gb_doc_get_type):
+	* src/hig.c: (gb_hig_alert_get_type), (gb_hig_dialog_get_type),
+	(gb_hig_category_get_type), (gb_hig_vbox_get_type),
+	(gb_hig_hbox_get_type):
+	* src/hig.h:
+	* src/view.c: (gb_view_get_type):
+	* src/view.h:
+	* src/window.c: (gb_window_get_type):
+	* src/window.h:
+	* src/prefs-dialog.c: (gb_prefs_dialog_get_type):
+	* src/table-model.c: (gb_table_model_get_type):
+		Cleanup of get_type functions: unify style, and make sure they
+		return GType.
+		
+	* src/Makefile.am:
+	* src/file.c: (gl_file_open), (open_response), (gb_file_open_real),
+	(import_real), (gl_file_save_as), (save_as_response):
+		Use new file chooser, if available.
+
+	* src/ui.c: (gb_ui_init), (gb_ui_unref):
+	* src/ui.h:
+	* src/window.c: (gb_window_destroy):
+	* src/window.h:
+		Added book-keeping to unreference recent-view at window destruction.
+
+2004-12-16  Jim Evins  <evins@snaught.com>
+
+	* data/Makefile.am:
+		Added 2004 redemption files.  Added new freedesktop.org mime database
+		stuff.
+	* data/gbonds.desktop.in:
+		Brought up-to-date.
+	* data/gbonds.xml.in:
+		New mime data database file.
+	* data/sb200406.asc:
+	* data/sb200412.asc:
+		2004 redemption files.
+
+2004-12-15  Jim Evins  <evins@snaught.com>
+
+	* configure.in:
+	* src/recent-files/Makefile.am:
+	* src/recent-files/egg-recent-item.c:
+	* src/recent-files/egg-recent-item.h:
+	* src/recent-files/egg-recent-model.c:
+	* src/recent-files/egg-recent-util.c:
+	* src/recent-files/egg-recent-view-gtk.c:
+	* src/recent-files/egg-recent-view.h:
+		Updated to use newer version of egg-recent-files.
+	* src/recent-files/egg-recent-vfs-utils.c:
+	* src/recent-files/egg-recent-vfs-utils.h:
+		Removed.
+	* src/recent-files/egg-recent.h:
+		Added.

@@ -1,0 +1,104 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.52)
+
+AC_INIT(gbonds, 2.0.2, http://sourceforge.net/tracker/?func=add&group_id=126342&atid=705400)
+AC_CONFIG_SRCDIR(src/gbonds.c)
+AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
+
+AM_MAINTAINER_MODE
+AM_CONFIG_HEADER(config.h)
+
+AC_PROG_INTLTOOL([0.21])
+
+AM_PROG_LIBTOOL
+
+AC_ISC_POSIX
+AC_PROG_CC
+AM_PROG_CC_STDC
+AC_HEADER_STDC
+
+GNOME_COMPILE_WARNINGS
+
+AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+
+dnl *******************************************************************
+dnl * Check for required package and version
+dnl *******************************************************************
+dnl Minimum versions of libraries
+GTK_REQUIRED=2.2.1
+LIBGNOMEUI_REQUIRED=2.0.1
+LIBBONOBO_REQUIRED=2.0.0
+LIBXML_REQUIRED=2.4.23
+LIBGNOMEPRINT_REQUIRED=2.2.0
+LIBGNOMEPRINTUI_REQUIRED=2.2.0
+GNOMEVFS_REQUIRED=2.2.2
+               
+PKG_CHECK_MODULES(GBONDS, gtk+-2.0 >= $GTK_REQUIRED \
+libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
+libbonobo-2.0 >= $LIBBONOBO_REQUIRED \
+libxml-2.0 >= $LIBXML_REQUIRED \
+libgnomeprint-2.2 >= $LIBGNOMEPRINT_REQUIRED \
+libgnomeprintui-2.2 >= $LIBGNOMEPRINTUI_REQUIRED \
+gnome-vfs-2.0 >= $GNOMEVFS_REQUIRED \
+)
+
+AC_SUBST(GBONDS_CFLAGS)
+AC_SUBST(GBONDS_LIBS)
+
+
+dnl ---------------------------------------------------------------------------
+dnl - Is the new file chooser available?
+dnl ---------------------------------------------------------------------------
+PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.3.2,
+                  HAVE_FILE_CHOOSER="-DHAVE_FILE_CHOOSER",
+                  HAVE_FILE_CHOOSER="-UHAVE_FILE_CHOOSER")
+AC_SUBST(HAVE_FILE_CHOOSER)
+
+
+dnl ---------------------------------------------------------------------------
+dnl - Is freedesktop mime dbase available?
+dnl ---------------------------------------------------------------------------
+AC_PATH_PROG(UPDATE_MIME_DATABASE, update-mime-database, no)
+AM_CONDITIONAL(HAVE_NEW_MIME, test x$UPDATE_MIME_DATABASE != xno)
+
+AC_PATH_PROG(UPDATE_DESKTOP_DATABASE, update-desktop-database, no)
+AM_CONDITIONAL(HAVE_NEWER_MIME, test x$UPDATE_DESKTOP_DATABASE != xno)
+
+
+dnl ****************************************
+dnl * Supported languages
+dnl ****************************************
+GETTEXT_PACKAGE=gbonds
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
+
+dnl Add the languages which your application supports here.
+ALL_LINGUAS=""
+AM_GLIB_GNU_GETTEXT
+
+dnl ****************************************
+dnl * Makefiles
+dnl ****************************************
+AC_OUTPUT([
+Makefile
+src/Makefile
+src/recent-files/Makefile
+pixmaps/Makefile
+data/Makefile
+po/Makefile.in
+help/Makefile
+help/C/Makefile
+data/gbonds.desktop
+gbonds.spec
+])
+
+echo "
+
+Configuration:
+
+        Prefix:                 ${prefix}
+        Source code location:   ${srcdir}
+        Compiler:               ${CC}
+
+"

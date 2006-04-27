@@ -1,0 +1,6 @@
+application/x-gbonds:
+	open=gbonds %f
+        icon_filename=gbonds-application-x-gbonds.png
+        short_list_application_ids_for_novice_user_level=gbonds
+        short_list_application_ids_for_intermediate_user_level=gbonds
+        short_list_application_ids_for_advanced_user_level=gbonds

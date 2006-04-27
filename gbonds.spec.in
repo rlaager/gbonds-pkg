@@ -1,0 +1,87 @@
+Summary: gbonds is a savings bond inventory program for GNOME.
+Name:      gbonds
+Version:   @VERSION@
+Release:   1
+Copyright: GPL
+Group: Applications/Finance
+URL: http://gbonds.sourceforge.net/
+
+Source: %{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/root-%{name}-%{version}
+Prefix: %{_prefix}
+
+BuildRequires: gtk2-devel >= @GTK_REQUIRED@
+BuildRequires: libxml2-devel >= @LIBXML_REQUIRED@
+BuildRequires: libgnomeui-devel >= @LIBGNOMEUI_REQUIRED@
+BuildRequires: libbonoboui-devel >= @LIBBONOBOUI_REQUIRED@
+BuildRequires: libgnomeprintui22-devel >= @LIBGNOMEPRINT_REQUIRED@
+BuildRequires: gnome-vfs2-devel >= @GNOMEVFS_REQUIRED@
+
+Requires: gtk2 >= @GTK_REQUIRED@
+Requires: libxml2 >= @LIBXML_REQUIRED@
+Requires: libgnomeui >= @LIBGNOMEUI_REQUIRED@
+Requires: libbonoboui >= @LIBBONOBOUI_REQUIRED@
+Requires: libgnomeprintui22 >= @LIBGNOMEPRINT_REQUIRED@
+Requires: gnome-vfs2 >= @GNOMEVFS_REQUIRED@
+
+%description
+GBonds is a savings bond inventory program for GNOME. It allows you to
+track the current redemption value and performance of your U.S. Savings
+Bonds and keep a valuable record of the bonds you own.
+
+%prep
+%setup
+
+%build
+%configure
+%{__make} %{?_smp_mflags}
+
+%install
+%{__rm} -rf %{buildroot}
+%makeinstall
+
+desktop-file-install --vendor gnome --delete-original \
+	--add-category X-Red-Hat-Base              \
+	--dir %{buildroot}%{_datadir}/applications \
+	%{buildroot}%{_datadir}/applications/%{name}.desktop
+
+%{__rm} -rf %{buildroot}/var/scrollkeeper
+%{__rm} -f %{buildroot}%{_datadir}/mime/XMLnamespaces
+%{__rm} -f %{buildroot}%{_datadir}/mime/globs
+%{__rm} -f %{buildroot}%{_datadir}/mime/magic
+%{__rm} -rf %{buildroot}%{_datadir}/mime/application
+
+
+%clean
+%{__rm} -rf %{buildroot}
+
+%post
+scrollkeeper-update
+if (update-mime-database -v &> /dev/null); then
+  update-mime-database "%{_datadir}/mime" > /dev/null
+fi
+
+%postun
+scrollkeeper-update
+if (update-mime-database -v &> /dev/null); then
+  update-mime-database "%{_datadir}/mime" > /dev/null
+fi
+
+%files
+%defattr(-, root, root)
+%doc README COPYING COPYING-DOCS ChangeLog NEWS AUTHORS INSTALL
+%{_bindir}/gbonds
+%{_datadir}/gbonds
+%{_datadir}/pixmaps/*
+%{_datadir}/gnome/help/gbonds/
+%{_datadir}/omf/
+%{_datadir}/applications/gnome-gbonds.desktop
+%{_datadir}/application-registry/*
+%{_datadir}/mime-info/*
+%{_datadir}/mime/packages/*
+
+
+%changelog
+* Sat May 19 2001 Jim Evins <evins@snaught.com>
+- Created
+
