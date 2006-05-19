@@ -7,7 +7,7 @@ Standards-Version: 3.6.2
 
 Package: gbonds
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, scrollkeeper
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: U.S. savings bond inventory program for GNOME
  GBonds is a savings bond inventory program for the GNOME desktop environment.
  It allows you to track the current redemption value and performance of your
