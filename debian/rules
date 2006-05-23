@@ -47,6 +47,10 @@ config.status: patch configure
 	ln -sf /usr/share/misc/config.guess .
 	rm -f config.cache
 
+	touch configure.in && \
+	touch aclocal.m4 && \
+	touch configure
+
 	CFLAGS="$(CFLAGS) -Wl,-z,defs" UPDATE_DESKTOP_DATABASE=/bin/true UPDATE_MIME_DATABASE=/bin/true ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 
 
@@ -68,6 +72,10 @@ clean-patched:
 
 	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
+
+	-rm -f intltool-extract
+	-rm -f intltool-merge
+	-rm -f intltool-update
 
 	find -type d -name autom4te.cache -print0 | xargs -0 -r rm -rf \;
 	-rm -f platform.h auto-include.h
