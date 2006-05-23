@@ -42,6 +42,11 @@ unpatch:
 config.status: patch configure
 	dh_testdir
 	# Add here commands to configure the package.
+
+	ln -sf /usr/share/misc/config.sub .
+	ln -sf /usr/share/misc/config.guess .
+	rm -f config.cache
+
 	CFLAGS="$(CFLAGS) -Wl,-z,defs" UPDATE_DESKTOP_DATABASE=/bin/true UPDATE_MIME_DATABASE=/bin/true ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 
 
@@ -59,17 +64,15 @@ clean: clean-patched unpatch
 clean-patched:
 	dh_testdir
 	dh_testroot
-	rm -f build-stamp 
+	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
-ifneq "$(wildcard /usr/share/misc/config.sub)" ""
-	cp -f /usr/share/misc/config.sub config.sub
-endif
-ifneq "$(wildcard /usr/share/misc/config.guess)" ""
-	cp -f /usr/share/misc/config.guess config.guess
-endif
 
+	find -type d -name autom4te.cache -print0 | xargs -0 -r rm -rf \;
+	-rm -f platform.h auto-include.h
+	find -type d -name build -print0 | xargs -0 -r rm -rf \;
+	find \( -name config.sub -o -name config.guess \) -print0 | xargs -0 -r rm -f \;
 
 	dh_clean 
 
