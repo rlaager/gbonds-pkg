@@ -41,7 +41,6 @@ unpatch:
 
 config.status: patch configure
 	dh_testdir
-	# Add here commands to configure the package.
 
 	ln -sf /usr/share/misc/config.sub .
 	ln -sf /usr/share/misc/config.guess .
@@ -59,7 +58,6 @@ build: build-stamp
 build-stamp:  config.status
 	dh_testdir
 
-	# Add here commands to compile the package.
 	$(MAKE)
 
 	touch build-stamp
@@ -70,9 +68,10 @@ clean-patched:
 	dh_testroot
 	rm -f build-stamp configure-stamp
 
-	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
 
+	# Things upstream's distclean missed.
+	-rm -f help/C/gbonds-C.omf.out
 	-rm -f intltool-extract
 	-rm -f intltool-merge
 	-rm -f intltool-update
