@@ -79,7 +79,7 @@ clean-patched:
 	find -type d -name autom4te.cache -print0 | xargs -0 -r rm -rf \;
 	-rm -f platform.h auto-include.h
 	find -type d -name build -print0 | xargs -0 -r rm -rf \;
-	find \( -name config.sub -o -name config.guess \) -print0 | xargs -0 -r rm -f \;
+	find \( -name config.sub -o -name config.guess -o -name config.log \) -print0 | xargs -0 -r rm -f \;
 
 	dh_clean 
 

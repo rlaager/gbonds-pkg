@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Richard Laager <rlaager@wiktel.com>
 Build-Depends: debhelper (>= 4.0.0), autotools-dev, dpatch, libgtk2.0-dev (>= 2.2.1), libgnomeui-dev (>= 2.0.1), libbonobo2-dev (>= 2.0.0), libxml2-dev (>= 2.4.23), libgnomeprint2.2-dev (>= 2.2.0), libgnomeprintui2.2-dev (>= 2.2.0), libgnomevfs2-dev (>= 2.2.2), scrollkeeper
-Standards-Version: 3.6.2
+Standards-Version: 3.7.2
 
 Package: gbonds
 Architecture: any
