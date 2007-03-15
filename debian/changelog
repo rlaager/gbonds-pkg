@@ -1,3 +1,11 @@
+gbonds (2.0.2-8) unstable; urgency=low
+
+  * Document in debian/copyright that the help contents are under the GFDL
+  * Add new savings bond redemption data: sb200612.asc
+  * Initial Debian archive upload (closes: #382718)
+
+ -- Richard Laager <rlaager@wiktel.com>  Wed, 14 Mar 2007 23:25:11 -0500
+
 gbonds (2.0.2-7) unstable; urgency=low
 
   * Bump policy version to 3.7.2

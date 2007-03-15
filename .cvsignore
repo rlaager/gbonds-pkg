@@ -1,0 +1,13 @@
+build-stamp
+config.guess
+config.h
+config.log
+config.status
+config.sub
+intltool-extract
+intltool-merge
+intltool-update
+libtool
+Makefile
+patch-stamp
+stamp-h
