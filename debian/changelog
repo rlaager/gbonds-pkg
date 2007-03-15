@@ -1,8 +1,14 @@
+gbonds (2.0.2-9) unstable; urgency=low
+
+  * Remove .cvsignore files to exclude them from the diff
+  * Initial Debian archive upload (closes: #382718)
+
+ -- Richard Laager <rlaager@wiktel.com>  Wed, 14 Mar 2007 23:50:34 -0500
+
 gbonds (2.0.2-8) unstable; urgency=low
 
   * Document in debian/copyright that the help contents are under the GFDL
   * Add new savings bond redemption data: sb200612.asc
-  * Initial Debian archive upload (closes: #382718)
 
  -- Richard Laager <rlaager@wiktel.com>  Wed, 14 Mar 2007 23:25:11 -0500
 
