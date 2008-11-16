@@ -33,6 +33,9 @@
 #include "table.h"
 #include "hig.h"
 #include "window.h"
+#include "file.h"
+#include "libbonoboui.h"
+#include "update.h"
 #include "debug.h"
 
 /*========================================================*/
@@ -169,7 +172,7 @@ main (int argc, char **argv)
 		switch (gb_prefs->startup_action) {
 
 		case GB_PREFS_STARTUP_BLANK:
-			gb_file_new (win);
+			gb_file_new (GTK_WINDOW (win));
 			break;
 
 		case GB_PREFS_STARTUP_RECENT:
@@ -180,16 +183,16 @@ main (int argc, char **argv)
 			recent_model = gb_recent_get_model ();
 			recent_list = egg_recent_model_get_list (recent_model);
 			if ( recent_list != NULL ) {
-				if ( !gb_file_open_real (recent_list->data, win) ) {
-					gb_file_new (win);
+				if ( !gb_file_open_real (recent_list->data, GTK_WINDOW (win)) ) {
+					gb_file_new (GTK_WINDOW (win));
 				}
 			}
 		}
 		break;
 
 		case GB_PREFS_STARTUP_DEFAULT:
-			if ( !gb_file_open_real (gb_prefs->startup_file, win) ) {
-				gb_file_new (win);
+			if ( !gb_file_open_real (gb_prefs->startup_file, GTK_WINDOW (win)) ) {
+				gb_file_new (GTK_WINDOW (win));
 			}
 			break;
 

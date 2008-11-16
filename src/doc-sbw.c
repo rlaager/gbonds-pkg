@@ -55,7 +55,7 @@ static gbDoc *read_sbw4 (FILE *fp, gbStatus *status);
 /****************************************************************************/
 gbDoc *
 gb_doc_sbw_open (const gchar    *filename,
-		 gbDocSBWStatus *status)
+		 gbStatus       *status)
 {
 	FILE      *fp;
 	gchar      line[256];

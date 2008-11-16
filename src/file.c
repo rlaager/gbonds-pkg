@@ -31,6 +31,7 @@
 #include "recent.h"
 #include "hig.h"
 #include "util.h"
+#include "libbonobo.h"
 
 #include "debug.h"
 
@@ -162,8 +163,6 @@ open_response (GtkDialog     *chooser,
 	gchar            *raw_filename;
 	gchar 		 *filename;
 	GtkWidget        *dlg;
-	gint              ret;
-	EggRecentModel 	 *recent;
 
 	gb_debug (DEBUG_FILE, "START");
 
@@ -369,8 +368,6 @@ gb_file_open_real (const gchar     *filename,
 	gchar            *abs_filename;
 	gbDoc            *doc;
 	gbDocXMLStatus    status;
-	EggRecentModel   *recent;
-	gint              ret;
 	GtkWidget        *new_window;
 
 	gb_debug (DEBUG_FILE, "START");
@@ -492,8 +489,6 @@ import_response (GtkDialog     *chooser,
 	gchar            *raw_filename;
 	gchar 		 *filename;
 	GtkWidget        *dlg;
-	gint              ret;
-	EggRecentModel 	 *recent;
 
 	gb_debug (DEBUG_FILE, "START");
 
@@ -673,9 +668,7 @@ import_real (const gchar     *filename,
 {
 	gchar            *abs_filename;
 	gbDoc            *doc;
-	gbDocSBWStatus    status;
-	EggRecentModel   *recent;
-	gint              ret;
+	gbStatus          status;
 	GtkWidget        *new_window;
 
 	gb_debug (DEBUG_FILE, "START");
@@ -742,9 +735,7 @@ gb_file_save (gbDoc     *doc,
 	      GtkWindow *window)
 {
 	gbDocXMLStatus    status;
-	GError           *error = NULL;
 	gchar            *filename = NULL;
-	EggRecentModel   *recent;
 
 	gb_debug (DEBUG_FILE, "");
 
@@ -888,7 +879,6 @@ save_as_response (GtkDialog     *chooser,
 	gchar            *raw_filename, *filename, *full_filename;
 	GtkWidget        *dlg;
 	gbDocXMLStatus    status;
-	EggRecentModel   *recent;
 	gboolean         *saved_flag;
 	gchar            *primary_msg;
 	gboolean          cancel_flag = FALSE;
@@ -1240,10 +1230,9 @@ gb_file_close (gbWindow *window)
 		doc = view->doc;
 
 		if (gb_doc_is_modified (doc))	{
-			GtkWidget *msgbox, *w;
+			GtkWidget *msgbox;
 			gchar *fname = NULL, *msg = NULL;
 			gint ret;
-			gboolean exiting;
 
 			fname = gb_doc_get_short_name (doc);
 			

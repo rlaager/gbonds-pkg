@@ -71,7 +71,6 @@ static void notify_cb (GConfClient *client,
 static gchar *get_string (GConfClient* client, const gchar* key, const gchar* def);
 static gboolean get_bool (GConfClient* client, const gchar* key, gboolean def);
 static gint get_int (GConfClient* client, const gchar* key, gint def);
-static gdouble get_float (GConfClient* client, const gchar* key, gdouble def);
 
 
 /*****************************************************************************/
@@ -162,8 +161,6 @@ gb_prefs_save_settings (void)
 void
 gb_prefs_load_settings (void)
 {
-	gchar *string;
-
 	gb_debug (DEBUG_PREFS, "START");
 	
 	if (gb_prefs == NULL)
@@ -300,35 +297,6 @@ get_int (GConfClient* client,
 
 	  if ( val->type == GCONF_VALUE_INT) {
 		  retval = gconf_value_get_int(val);
-	  } else {
-		  retval = def;
-	  }
-
-	  gconf_value_free (val);
-
-	  return retval;
-
-  } else {
-
-	  return def;
-
-  }
-}
-
-static gdouble
-get_float (GConfClient* client,
-	   const gchar* key,
-	   gdouble def)
-{
-  GConfValue* val;
-  gdouble retval;
-
-  val = gconf_client_get (client, key, NULL);
-
-  if (val != NULL) {
-
-	  if ( val->type == GCONF_VALUE_FLOAT ) {
-		  retval = gconf_value_get_float(val);
 	  } else {
 		  retval = def;
 	  }

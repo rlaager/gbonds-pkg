@@ -1020,7 +1020,6 @@ add_finish_page( GnomeDruid *wdruid, GdkPixbuf *logo )
 {
 	GdkColor   druid_bg_color = DRUID_BG_COLOR;
 	GdkColor   druid_title_color = DRUID_TITLE_COLOR;
-	GtkWidget *wvbox, *wvbox2;
 
 	gb_debug (DEBUG_UPDATE, "START");
 
@@ -1178,21 +1177,21 @@ GList *read_site_list( void )
 		xmlFreeDoc( doc );
 		return NULL;
 	}
-	if ( g_strcasecmp( root->name, "Redemption-Data-Sites" ) != 0 ) {
+	if ( g_strcasecmp( (gchar *)root->name, "Redemption-Data-Sites" ) != 0 ) {
 		g_warning( "bad root node = \"%s\"", root->name );
 		xmlFreeDoc( doc );
 		return NULL;
 	}
 
 	for ( node = root->xmlChildrenNode; node != NULL; node=node->next ) {
-		if ( g_strcasecmp( node->name, "Site" ) == 0 ) {
+		if ( g_strcasecmp( (gchar *)node->name, "Site" ) == 0 ) {
 			site = g_new0( Site, 1 );
-			site->uri  = xmlGetProp( node, "uri" );
-			site->name = xmlNodeGetContent( node );
+			site->uri  = (gchar *)xmlGetProp( node, (xmlChar *)"uri" );
+			site->name = (gchar *)xmlNodeGetContent( node );
 			site_list = g_list_append( site_list, site );
 		}
 		else {
-			if ( g_strcasecmp( node->name, "text" ) != 0 ) {
+			if ( g_strcasecmp( (gchar *)node->name, "text" ) != 0 ) {
 				g_warning( "bad node =  \"%s\"", node->name );
 			}
 		}

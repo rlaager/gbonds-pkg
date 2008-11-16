@@ -36,8 +36,8 @@
 #define g_marshal_value_peek_ulong(v)    (v)->data[0].v_ulong
 #define g_marshal_value_peek_int64(v)    (v)->data[0].v_int64
 #define g_marshal_value_peek_uint64(v)   (v)->data[0].v_uint64
-#define g_marshal_value_peek_enum(v)     (v)->data[0].v_int
-#define g_marshal_value_peek_flags(v)    (v)->data[0].v_uint
+#define g_marshal_value_peek_enum(v)     (v)->data[0].v_long
+#define g_marshal_value_peek_flags(v)    (v)->data[0].v_ulong
 #define g_marshal_value_peek_float(v)    (v)->data[0].v_float
 #define g_marshal_value_peek_double(v)   (v)->data[0].v_double
 #define g_marshal_value_peek_string(v)   (v)->data[0].v_pointer
@@ -57,10 +57,10 @@
 /* VOID:INT,INT (marshal.list:4) */
 void
 gb_marshal_VOID__INT_INT (GClosure     *closure,
-                          GValue       *return_value,
+                          GValue       *return_value G_GNUC_UNUSED,
                           guint         n_param_values,
                           const GValue *param_values,
-                          gpointer      invocation_hint,
+                          gpointer      invocation_hint G_GNUC_UNUSED,
                           gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__INT_INT) (gpointer     data1,
@@ -94,10 +94,10 @@ gb_marshal_VOID__INT_INT (GClosure     *closure,
 /* VOID:INT,DOUBLE (marshal.list:5) */
 void
 gb_marshal_VOID__INT_DOUBLE (GClosure     *closure,
-                             GValue       *return_value,
+                             GValue       *return_value G_GNUC_UNUSED,
                              guint         n_param_values,
                              const GValue *param_values,
-                             gpointer      invocation_hint,
+                             gpointer      invocation_hint G_GNUC_UNUSED,
                              gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__INT_DOUBLE) (gpointer     data1,
@@ -133,10 +133,10 @@ gb_marshal_VOID__INT_DOUBLE (GClosure     *closure,
 /* VOID:DOUBLE,DOUBLE (marshal.list:7) */
 void
 gb_marshal_VOID__DOUBLE_DOUBLE (GClosure     *closure,
-                                GValue       *return_value,
+                                GValue       *return_value G_GNUC_UNUSED,
                                 guint         n_param_values,
                                 const GValue *param_values,
-                                gpointer      invocation_hint,
+                                gpointer      invocation_hint G_GNUC_UNUSED,
                                 gpointer      marshal_data)
 {
   typedef void (*GMarshalFunc_VOID__DOUBLE_DOUBLE) (gpointer     data1,
@@ -172,10 +172,10 @@ gb_marshal_VOID__DOUBLE_DOUBLE (GClosure     *closure,
 /* BOOLEAN:OBJECT (marshal.list:9) */
 void
 gb_marshal_BOOLEAN__OBJECT (GClosure     *closure,
-                            GValue       *return_value,
+                            GValue       *return_value G_GNUC_UNUSED,
                             guint         n_param_values,
                             const GValue *param_values,
-                            gpointer      invocation_hint,
+                            gpointer      invocation_hint G_GNUC_UNUSED,
                             gpointer      marshal_data)
 {
   typedef gboolean (*GMarshalFunc_BOOLEAN__OBJECT) (gpointer     data1,
