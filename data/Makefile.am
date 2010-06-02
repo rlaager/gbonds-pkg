@@ -55,7 +55,16 @@ redemption_DATA = \
 	sb200306.asc \
 	sb200311.asc \
 	sb200406.asc \
-	sb200412.asc
+	sb200412.asc \
+	sb200506.asc \
+	sb200512.asc \
+	sb200606.asc \
+	sb200612.asc \
+	sb200706.asc \
+	sb200712.asc \
+	sb200806.asc \
+	sb200812.asc
+
 
 EXTRA_DIST = \
 	$(DESKTOP_IN_FILES)	\

@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/bin/sh -e
 
-if [ "$1" = "configure" ] && [ -x "`which scrollkeeper-update 2>/dev/null`" ]; then
-	scrollkeeper-update -q
+if [ "$1" = "configure" ] ; then
+	if [ -x "`which scrollkeeper-update 2>/dev/null`" ]; then
+		scrollkeeper-update -q
+	fi
 fi
 
 #DEBHELPER#

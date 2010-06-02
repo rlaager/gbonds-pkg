@@ -71,7 +71,7 @@ gb_doc_xml_open (const gchar    *filename,
 	gb_debug (DEBUG_XML, "START");
 
 	xmldoc = xmlParseFile (filename);
-	if (!doc) {
+	if (!xmldoc) {
 		g_warning (_("xmlParseFile error"));
 		*status = GB_DOC_XML_ERROR_OPEN_PARSE;
 		return NULL;
@@ -130,7 +130,7 @@ static gbDoc *
 xml_to_doc (xmlDocPtr       xmldoc,
 	    gbDocXMLStatus *status)
 {
-	xmlNodePtr  root, node;
+	xmlNodePtr  root;
 	gbDoc      *doc;
 
 	gb_debug (DEBUG_XML, "START");
@@ -162,7 +162,7 @@ xml_parse_doc (xmlNodePtr      root,
 {
 	xmlNodePtr  node;
 	gbDoc      *doc;
-	gchar      *series, *idate, *denom, *sn, *title;
+	xmlChar    *series, *idate, *denom, *sn, *title;
 	gdouble     xdenom;
 	gbDocBond  *p_bond;
 	gbStatus    errno;
@@ -171,8 +171,8 @@ xml_parse_doc (xmlNodePtr      root,
 
 	*status = GB_OK;
 
-	if ( (g_strcasecmp( root->name, "Bond-List" ) != 0) &&
-	     (g_strcasecmp( root->name, "Bond-Inventory" ) != 0) ) {
+	if ( (g_strcasecmp( (gchar *)root->name, "Bond-List" ) != 0) &&
+	     (g_strcasecmp( (gchar *)root->name, "Bond-Inventory" ) != 0) ) {
 		g_warning( _("Bad root node = \"%s\""), root->name );
 		*status = GB_ERROR_OPEN_XML_PARSE;
 		return NULL;
@@ -182,16 +182,16 @@ xml_parse_doc (xmlNodePtr      root,
 
 	for ( node=root->xmlChildrenNode; node!=NULL; node=node->next ) {
 
-		if ( g_strcasecmp( node->name, "Title" ) == 0 ) {
+		if ( g_strcasecmp( (gchar *)node->name, "Title" ) == 0 ) {
 
 			title = xmlNodeGetContent( node );
-			gb_doc_set_title (doc, title);
-			g_free (title);
+			gb_doc_set_title (doc, (gchar *)title);
+			xmlFree (title);
 
 		}
-		else if ( g_strcasecmp( node->name, "Bond" ) == 0 ) {
+		else if ( g_strcasecmp( (gchar *)node->name, "Bond" ) == 0 ) {
 
-			series = xmlGetProp( node, "series" );
+			series = xmlGetProp( node, (xmlChar *)"series" );
 			if ( !series || !series[0] ) {
 				g_warning( _("Missing series property") );
 				*status = GB_ERROR_OPEN_XML_PARSE;
@@ -199,7 +199,7 @@ xml_parse_doc (xmlNodePtr      root,
 				return NULL;
 			}
 
-			idate  = xmlGetProp( node, "idate" );
+			idate  = xmlGetProp( node, (xmlChar *)"idate" );
 			if ( !idate || !idate[0] ) {
 				g_warning( _("Missing idate property") );
 				*status = GB_ERROR_OPEN_XML_PARSE;
@@ -207,28 +207,28 @@ xml_parse_doc (xmlNodePtr      root,
 				return NULL;
 			}
 
-			denom  = xmlGetProp( node, "denom" );
+			denom  = xmlGetProp( node, (xmlChar *)"denom" );
 			if ( !denom || !denom[0] ) {
 				g_warning( _("Missing denom property") );
 				*status = GB_ERROR_OPEN_XML_PARSE;
 				g_object_unref ( doc );
 				return NULL;
 			}
-			sscanf( denom, "%lf", &xdenom );
+			sscanf( (gchar *)denom, "%lf", &xdenom );
 
-			sn     = xmlGetProp( node, "sn" );
+			sn     = xmlGetProp( node, (xmlChar *)"sn" );
 
-			p_bond = gb_doc_bond_new( series, idate, xdenom, sn, &errno );
+			p_bond = gb_doc_bond_new( (gchar *)series, (gchar *)idate, xdenom, (gchar *)sn, &errno );
 			if ( errno != GB_OK ) {
 				g_warning( _("Cannot create bond, status = %d"), errno );
 				*status = errno;
 				g_object_unref ( doc );
 				return NULL;
 			}
-			g_free (series);
-			g_free (idate);
-			g_free (denom);
-			g_free (sn);
+			xmlFree (series);
+			xmlFree (idate);
+			xmlFree (denom);
+			xmlFree (sn);
 
 			errno = gb_doc_add_bond( doc, p_bond );
 			if ( errno != GB_OK ) {
@@ -242,7 +242,7 @@ xml_parse_doc (xmlNodePtr      root,
 
 		}
 		else {
-			if ( g_strcasecmp( node->name, "text" ) != 0 ) {
+			if ( g_strcasecmp( (gchar *)node->name, "text" ) != 0 ) {
 				g_warning( _("bad node =  \"%s\""), node->name );
 			}
 		}
@@ -328,15 +328,15 @@ doc_to_xml (gbDoc          *doc,
 
 	LIBXML_TEST_VERSION;
 
-	xmldoc = xmlNewDoc ("1.0");
-	xmldoc->xmlRootNode = xmlNewDocNode (xmldoc, NULL, "Bond-Inventory", NULL);
+	xmldoc = xmlNewDoc ((xmlChar *)"1.0");
+	xmldoc->xmlRootNode = xmlNewDocNode (xmldoc, NULL, (xmlChar *)"Bond-Inventory", NULL);
 
-	ns = xmlNewNs (xmldoc->xmlRootNode, NAME_SPACE, "gbonds");
+	ns = xmlNewNs (xmldoc->xmlRootNode, (xmlChar *)NAME_SPACE, (xmlChar *)"gbonds");
 	xmlSetNs (xmldoc->xmlRootNode, ns);
 
 	title = gb_doc_get_title (doc);
 	if ( title != NULL ) {
-		xmlNewChild( xmldoc->xmlRootNode, NULL, "Title", title );
+		xmlNewChild( xmldoc->xmlRootNode, NULL, (xmlChar *)"Title", (xmlChar *)title );
 		g_free (title);
 	}
 
@@ -346,13 +346,13 @@ doc_to_xml (gbDoc          *doc,
 		idate = gb_date_fmt( p_bond->idate );
 		denom = g_strdup_printf( "%.0f", p_bond->denom );
 
-		xml_bond = xmlNewChild( xmldoc->xmlRootNode, NULL, "Bond", NULL );
-		xmlSetProp( xml_bond, "series", gb_series_fmt( p_bond->series ) );
-		xmlSetProp( xml_bond, "idate", idate );
-		xmlSetProp( xml_bond, "denom", denom );
+		xml_bond = xmlNewChild( xmldoc->xmlRootNode, NULL, (xmlChar *)"Bond", NULL );
+		xmlSetProp( xml_bond, (xmlChar *)"series", (xmlChar *)gb_series_fmt( p_bond->series ) );
+		xmlSetProp( xml_bond, (xmlChar *)"idate", (xmlChar *)idate );
+		xmlSetProp( xml_bond, (xmlChar *)"denom", (xmlChar *)denom );
 		if ( p_bond->sn != NULL ) {
 			/* Imported SBW inventories may not have SNs */
-			xmlSetProp( xml_bond, "sn", p_bond->sn );
+			xmlSetProp( xml_bond, (xmlChar *)"sn", (xmlChar *)p_bond->sn );
 		}
 
 		g_free( idate );

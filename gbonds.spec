@@ -1,6 +1,6 @@
 Summary: gbonds is a savings bond inventory program for GNOME.
 Name:      gbonds
-Version:   2.0.2
+Version:   2.0.3
 Release:   1
 Copyright: GPL
 Group: Applications/Finance
