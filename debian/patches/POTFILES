@@ -1,0 +1,32 @@
+Description: Add missing files to POTFILES.in
+Author: Richard Laager <rlaager@wiktel.com>
+Last-Update: 2010-05-28
+
+--- gbonds-2.0.2.orig/po/POTFILES.in
++++ gbonds-2.0.2/po/POTFILES.in
+@@ -1,9 +1,20 @@
+ # List of source files containing translatable strings.
+-
+-# Source files
++data/gbonds.keys.in
++data/gbonds.xml.in
++src/commands.c
++src/doc-sbw.c
++src/doc-xml.c
++src/doc.c
++src/edit.c
++src/file.c
+ src/gbonds.c
++src/gbonds-ui.xml
++src/prefs-dialog.c
++src/print-dialog.c
++src/print.c
+ src/splash.c
+ src/splash.h
+-
+-
+-
++src/table-model.c
++src/update.c
++src/view.c
++src/window.c

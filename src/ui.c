@@ -121,8 +121,6 @@ static void view_menu_item_toggled_cb     (BonoboUIComponent           *ui_compo
 
 static void set_app_main_toolbar_style 	  (BonoboUIComponent           *ui_component);
 
-static void set_view_style                (BonoboUIComponent           *ui_component);
-
 static void set_verb_sensitive            (BonoboUIComponent           *ui_component,
 					   gchar                       *cname,
 					   gboolean                     sensitive);
@@ -146,7 +144,6 @@ gb_ui_init (BonoboUIComponent *ui_component,
 {
         EggRecentView    *recent_view;
 	EggRecentModel   *recent_model;
-	BonoboControl    *control;
 
 	gb_debug (DEBUG_UI, "START");
 

@@ -64,7 +64,7 @@ gb_print_dialog (gbView *view, BonoboWindow *win)
 	g_return_if_fail (view && GB_IS_VIEW(view));
 	g_return_if_fail (win && BONOBO_IS_WINDOW(win));
 
-	dlg = gnome_print_dialog_new (NULL, _("Print inventory"), 0);
+	dlg = gnome_print_dialog_new (NULL, (guchar*)_("Print inventory"), 0);
 
 	gtk_window_set_transient_for (GTK_WINDOW(dlg), GTK_WINDOW(win));
 
@@ -102,7 +102,7 @@ print_response (GtkDialog *dlg,
 		job = gnome_print_job_new (config);
 		gb_print (job, view);
 		gnome_print_job_close (job);
-		preview = gnome_print_job_preview_new (job, _("Print preview"));
+		preview = gnome_print_job_preview_new (job, (guchar*)_("Print preview"));
 		gtk_widget_show (preview);
 		g_object_unref (G_OBJECT(job));
 		break;

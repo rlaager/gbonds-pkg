@@ -176,8 +176,7 @@ gb_prefs_dialog_new (GtkWindow *parent)
 static void
 gb_prefs_dialog_construct (gbPrefsDialog *dlg)
 {
-	GtkWidget *notebook, *wlabel, *wvbox, *wvbox1, *whbox, *wframe;
-	GSList *radio_group = NULL;
+	GtkWidget *notebook;
 
 	g_return_if_fail (GB_IS_PREFS_DIALOG (dlg));
 	g_return_if_fail (dlg->private != NULL);
@@ -305,7 +304,7 @@ startup_page (gbPrefsDialog *dlg)
 static GtkWidget *
 rdate_range_page (gbPrefsDialog *dlg)
 {
-	GtkWidget *wlabel, *wvbox, *wframe;
+	GtkWidget *wvbox, *wframe;
 	GtkSizeGroup *label_size_group;
 	GSList *radio_group = NULL;
 

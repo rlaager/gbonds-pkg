@@ -1,0 +1,76 @@
+--- gbonds-2.0.2.orig/src/Makefile.am
++++ gbonds-2.0.2/src/Makefile.am
+@@ -36,8 +36,6 @@ gbonds_SOURCES = \
+ 	recent.h			\
+ 	file.c				\
+ 	file.h				\
+-	print-dialog.c			\
+-	print-dialog.h			\
+ 	prefs-dialog.c			\
+ 	prefs-dialog.h			\
+ 	view.c				\
+@@ -59,8 +57,6 @@ gbonds_SOURCES = \
+ 	rules.h				\
+ 	types.c				\
+ 	types.h				\
+-	print.c				\
+-	print.h				\
+ 	prefs.c				\
+ 	prefs.h				\
+ 	update.c			\
+--- gbonds-2.0.2.orig/src/ui.c
++++ gbonds-2.0.2/src/ui.c
+@@ -53,7 +53,9 @@ static BonoboUIVerb gb_ui_verbs [] = {
+ 	BONOBO_UI_VERB ("FileImport",            gb_cmd_file_import),
+ 	BONOBO_UI_VERB ("FileSave",              gb_cmd_file_save),
+ 	BONOBO_UI_VERB ("FileSaveAs",            gb_cmd_file_save_as),
+-	BONOBO_UI_VERB ("FilePrint",             gb_cmd_file_print),
++#if 0
++	BONOBO_UI_VERB ("FilePrint",             gb_cmd_file_print)
++#endif
+ 	BONOBO_UI_VERB ("FileClose",             gb_cmd_file_close),
+ 	BONOBO_UI_VERB ("FileExit",              gb_cmd_file_exit),
+ 	BONOBO_UI_VERB ("EditCut",               gb_cmd_edit_cut),
+--- gbonds-2.0.2.orig/src/commands.h
++++ gbonds-2.0.2/src/commands.h
+@@ -47,9 +47,11 @@ void gb_cmd_file_save_as         (Bonobo
+ 				  gpointer           user_data,
+ 				  const gchar       *verbname);
+ 
++#if 0
+ void gb_cmd_file_print           (BonoboUIComponent *uic,
+ 				  gpointer           user_data,
+ 				  const gchar       *verbname);
++#endif
+ 
+ void gb_cmd_file_print_preview   (BonoboUIComponent *uic,
+ 				  gpointer           user_data,
+--- gbonds-2.0.2.orig/src/commands.c
++++ gbonds-2.0.2/src/commands.c
+@@ -122,6 +122,7 @@ gb_cmd_file_save_as (BonoboUIComponent *
+ 	gb_file_save_as (GB_VIEW(window->view)->doc, GTK_WINDOW(window));
+ }
+ 
++#if 0
+ /****************************************************************************/
+ /* File->Print command.                                                     */
+ /****************************************************************************/
+@@ -139,6 +140,7 @@ gb_cmd_file_print (BonoboUIComponent *ui
+ 	gb_print_dialog (GB_VIEW(window->view), BONOBO_WINDOW(window));
+ 
+ }
++#endif
+ 
+ /****************************************************************************/
+ /* File->Close command.                                                     */
+--- gbonds-2.0.2.orig/configure.in
++++ gbonds-2.0.2/configure.in
+@@ -38,8 +38,6 @@ PKG_CHECK_MODULES(GBONDS, gtk+-2.0 >= $G
+ libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
+ libbonobo-2.0 >= $LIBBONOBO_REQUIRED \
+ libxml-2.0 >= $LIBXML_REQUIRED \
+-libgnomeprint-2.2 >= $LIBGNOMEPRINT_REQUIRED \
+-libgnomeprintui-2.2 >= $LIBGNOMEPRINTUI_REQUIRED \
+ gnome-vfs-2.0 >= $GNOMEVFS_REQUIRED \
+ )
+ 

@@ -24,6 +24,7 @@
 
 #include "recent.h"
 #include "prefs.h"
+#include <string.h>
 
 #include "debug.h"
 
@@ -120,7 +121,6 @@ gb_recent_get_filename (EggRecentItem *item)
 	char *uri, *filename;
 	char *utf8_filename = NULL;
 	int prefix_len = strlen ("file://");
-	gboolean result = FALSE;
 
         uri = egg_recent_item_get_uri (item);
 

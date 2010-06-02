@@ -3,16 +3,16 @@ Section: gnome
 Priority: optional
 Maintainer: Richard Laager <rlaager@wiktel.com>
 Uploaders: tony mancill <tmancill@debian.org>
-Build-Depends: debhelper (>= 4.0.0), autotools-dev, dpatch, libgtk2.0-dev (>= 2.2.1), libgnomeui-dev (>= 2.0.1), libbonobo2-dev (>= 2.0.0), libxml2-dev (>= 2.4.23), libgnomeprint2.2-dev (>= 2.2.0), libgnomeprintui2.2-dev (>= 2.2.0), libgnomevfs2-dev (>= 2.2.2), scrollkeeper
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libgtk2.0-dev (>= 2.2.1), libgnomeui-dev (>= 2.0.1), libbonobo2-dev (>= 2.0.0), libxml2-dev (>= 2.4.23), libgnomevfs2-dev (>= 2.2.2), scrollkeeper
+Standards-Version: 3.8.4
 
 Package: gbonds
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: gbonds-data (>= ${source:Upstream-Version}), gbonds-data (<< ${source:Upstream-Version}-z), ${shlibs:Depends}, ${misc:Depends}
 Description: U.S. savings bond inventory program for GNOME
  GBonds is a savings bond inventory program for the GNOME desktop environment.
  It allows you to track the current redemption value and performance of your
- U.S. Savings Bonds and keep a valuable record of the bonds you own. GBonds is
+ U.S. Savings Bonds and keep a valuable record of the bonds you own.  GBonds is
  similar in functionality to Savings Bond Wizard from the U.S. Department of
  the Treasury.
  .
@@ -22,5 +22,14 @@ Description: U.S. savings bond inventory program for GNOME
    * Uses U.S. Treasury Department redemption files without modification.
    * Imports inventories created with Savings Bond Wizard.
    * Tracks current value of both individual bonds and an entire inventory.
-   * Prints inventories. It is important to keep a permanent record of your
-     bonds in a separate location if you ever need to replace them.
+#   * Prints inventories.  It is important to keep a permanent record of your
+#     bonds in a separate location in case you ever need to replace them.
+Homepage: http://gbonds.sourceforge.net
+
+Package: gbonds-data
+Architecture: all
+Depends: ${misc:Depends}
+Description: GBonds data files
+ This package contains architecture-independent supporting data files required
+ for use with GBonds, such as documentation, icons, and the Savings Bond
+ redemption data files.

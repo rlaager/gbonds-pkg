@@ -1018,13 +1018,12 @@ update_view (gbView *view)
 GList *
 gb_view_get_selected_bond_list (gbView *view)
 {
-	GList            *selected_bond_list, *p;
+	GList            *selected_bond_list;
 	GtkTreeSelection *selection;
-	gbDocBond        *p_bond;
 
 	gb_debug (DEBUG_VIEW, "START");
 
-	g_return_if_fail (GB_IS_VIEW (view));
+	g_return_val_if_fail (GB_IS_VIEW (view), NULL);
 
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(view->bond_list));
 	selected_bond_list = NULL;
@@ -1202,14 +1201,14 @@ gb_view_copy (gbView *view)
 					  p_info->next_accrual,
 					  p_info->final_maturity,
 					  p_info->flag_str );
-		g_byte_array_append( array, string, strlen(string) );
+		g_byte_array_append( array, (guint8 *)string, strlen(string) );
 		g_free( string );
 
 		gb_doc_bond_free_info( p_info );
 		p_info = NULL;
 	}
 
-	g_byte_array_append( array, "", 1 ); /* NULL terminate array */
+	g_byte_array_append( array, (guint8 *)"", 1 ); /* NULL terminate array */
 	view->selection_data = array;
 
 	/* Export data not only to our private selection, but to the public */
@@ -1324,7 +1323,7 @@ selection_received_cb (GtkWidget        *widget,
 		return;
 	}
 
-	text = g_strsplit( selection_data->data, "\n", 0 );
+	text = g_strsplit( (gchar *)selection_data->data, "\n", 0 );
 	for ( i=0; (text[i] != NULL) && (*text[i] != 0); i++ ) {
 		p_sn     = strtok( text[i], " " );
 		p_denom  = strtok( NULL, " $" );

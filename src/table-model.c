@@ -35,6 +35,7 @@
 
 #include "table-model.h"
 #include "marshal.h"
+#include "rules.h"
 
 #include "debug.h"
 
@@ -78,7 +79,6 @@ static GObjectClass *parent_class = NULL;
 
 static guint signals[LAST_SIGNAL] = {0};
 
-static guint untitled = 0;
 
 /*========================================================*/
 /* Private function prototypes.                           */
@@ -275,10 +275,10 @@ append_tables_from_dir (GList       *table,
 
 	gb_debug (DEBUG_TABLE, "START");
 
-	if ( dirname == NULL ) return;
+	if ( dirname == NULL ) return NULL;
 
 	dp = opendir( dirname );
-	if ( dp == NULL ) return;
+	if ( dp == NULL ) return NULL;
 
 	while ( (d_entry = readdir(dp)) != NULL ) {
 
