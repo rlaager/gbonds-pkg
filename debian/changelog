@@ -1,5 +1,28 @@
+gbonds (2.0.3-2.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix "file conflict during upgrade from lenny": add Replaces/Breaks on
+    gbonds (<< 2.0.3-1); patch by Vagrant Cascadian (closes: #601978).
+
+ -- gregor herrmann <gregoa@debian.org>  Mon, 08 Nov 2010 01:14:03 +0100
+
+gbonds (2.0.3-2) unstable; urgency=low
+
+  [ Richard Laager ]
+  * debian/rules:
+    - Add "-Wl, --as-needed" to CFLAGS
+    - Remove extraneous calls to 'ls' in override_dh_auto_install target
+
+  [ tony mancill ]
+  * Update missing information in debian/copyright.
+    Thank you to Alexander Reichle-Schmehl for his assistance.
+  * Add README.Debian to note the lack of printing support.
+
+ -- tony mancill <tmancill@debian.org>  Sun, 06 Jun 2010 17:18:21 -0700
+
 gbonds (2.0.3-1) unstable; urgency=low
 
+  [ Richard Laager ]
   * New upstream version
   * Remove the Encoding key from the gbonds.desktop file as it is deprecated
   * Change debian/copyright to the DEP5 machine-readable format
@@ -16,7 +39,12 @@ gbonds (2.0.3-1) unstable; urgency=low
   * Added savings bond redemption data through 11/2010 (sb201006.asc)
   * Disabled printing, as libgnomeprint is going away (Closes: 542565)
 
- -- Richard Laager <rlaager@wiktel.com>  Wed, 02 Jun 2010 15:39:23 -0500
+  [ tony mancill ]
+  * debian/control: 
+    - Add libtool, intltool, gnome-common to Build-Depends:
+  * Add patch debian/patches/POTFILES.missing to allow build.
+
+ -- tony mancill <tmancill@debian.org>  Thu, 03 Jun 2010 21:43:37 -0700
 
 gbonds (2.0.2-9) unstable; urgency=low
 

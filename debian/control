@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Richard Laager <rlaager@wiktel.com>
 Uploaders: tony mancill <tmancill@debian.org>
-Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libgtk2.0-dev (>= 2.2.1), libgnomeui-dev (>= 2.0.1), libbonobo2-dev (>= 2.0.0), libxml2-dev (>= 2.4.23), libgnomevfs2-dev (>= 2.2.2), scrollkeeper
+Build-Depends: debhelper (>= 7.0.50~), autotools-dev, libgtk2.0-dev (>= 2.2.1), libgnomeui-dev (>= 2.0.1), libbonobo2-dev (>= 2.0.0), libxml2-dev (>= 2.4.23), libgnomevfs2-dev (>= 2.2.2), scrollkeeper, libtool, intltool, gnome-common
 Standards-Version: 3.8.4
 
 Package: gbonds
@@ -29,6 +29,8 @@ Homepage: http://gbonds.sourceforge.net
 Package: gbonds-data
 Architecture: all
 Depends: ${misc:Depends}
+Breaks: gbonds (<< 2.0.3-1)
+Replaces: gbonds (<< 2.0.3-1)
 Description: GBonds data files
  This package contains architecture-independent supporting data files required
  for use with GBonds, such as documentation, icons, and the Savings Bond
