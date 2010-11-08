@@ -45,7 +45,5 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	dh_auto_install
-	ls -l debian/tmp/usr/share/gbonds/
 	cp -a debian/sb*.asc debian/tmp/usr/share/gbonds/
-	ls -l debian/tmp/usr/share/gbonds/
 	chmod 644 debian/tmp/usr/share/gbonds/sb*.asc

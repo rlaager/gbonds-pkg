@@ -1,0 +1,9 @@
+Description: Skip source file in patch directory when checking internationalization.
+ This file was causing the dh_auto_test step to fail.
+Author: tony mancill <tmancill@debian.org>
+Last-Update: 2010-06-02
+
+--- /dev/null
++++ gbonds-2.0.3/po/POTFILES.skip
+@@ -0,0 +1 @@
++.pc/libgnomeprint/src/commands.c
