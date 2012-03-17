@@ -1,0 +1,1528 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+  <!ENTITY appversion "2.0">
+  <!ENTITY manversion "2.0.0">
+]>
+
+
+<!-- =============Document Header ============================= -->
+
+<article id="index" lang="en">
+
+<articleinfo>
+  <title>GBonds Manual V&manversion;</title>
+  <copyright>
+    <year>2000</year>
+    <year>2001</year>
+    <year>2003</year>
+    <holder>Jim Evins</holder>
+  </copyright>
+
+  <!-- translators: uncomment this:
+  <copyright>
+    <year>2000</year><holder>ME-THE-TRANSLATOR (Latin translation)</holder>
+  </copyright>
+   -->
+
+  <legalnotice id="legalnotice">
+   <para>
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the <ulink type="help"
+    url="ghelp:fdl"><citetitle>GNU Free Documentation
+    License</citetitle></ulink>, Version 1.1 or any later version
+    published by the Free Software Foundation with no Invariant Sections,
+    no Front-Cover Texts, and no Back-Cover Texts.  A copy of the license
+    can be found <ulink type="help" url="ghelp:fdl">here</ulink>
+    or in the file COPYING-DOCS which shipped as part of this package.
+   </para>
+  </legalnotice>
+
+
+  <!-- Tracks the GBonds version -->
+  <releaseinfo>This is version &manversion; of the GBonds manual.</releaseinfo>
+
+</articleinfo>
+
+<!-- ============= Document Body ============================= -->
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Introduction                                                          -->
+<!-- ********************************************************************* -->
+<sect1 id="intro"> <title>Introduction</title>
+
+<para>
+  <application>GBonds</application> is a program for maintaining
+  inventories of U.S. Savings Bonds for the <systemitem>GNOME
+  desktop</systemitem> environment.  It allows you to track the current
+  redemption value and performance of both individual bonds and an entire
+  inventory.  It supports series S (savings notes), E, EE, and I savings
+  bonds.  It also allows you to print your inventories to provide a permanent
+  record of the bonds you own.
+</para>
+
+<para>
+  <application>GBonds</application> uses redemption tables published by the
+  U.S. Department of Treasury
+  <footnote>
+    <para>
+    <application>GBonds</application> is not affiliated with or
+    endorsed by the U.S. Department of Treasury or the U.S. Government.
+    </para>
+  </footnote>
+  to provide up-to-date redemption values.  It can also import inventories
+  created with the Treasury Department's <application>Savings Bond
+  Wizard</application>
+  <footnote>
+    <para>
+    <application>Savings Bond Wizard</application> is a trademark
+    of the U.S. Department of the Treasury, Bureau of the Public Debt.
+    </para>
+  </footnote>
+  program.
+</para>
+
+<para>
+  This document describes version &appversion; of
+  <application>GBonds</application>.
+</para>
+
+</sect1>
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Basic Usage                                                           -->
+<!-- ********************************************************************* -->
+<sect1 id="usage"> <title>Basic Usage</title>
+
+<para>
+  This section describes the basic usage of <application>GBonds</application>,
+  a U.S. Savings Bond inventory program for the <systemitem>GNOME</systemitem>
+  desktop.
+</para>
+
+
+<!-- Main Window ========================================================= -->
+<sect2 id="mainwin"> <title>Main Window</title>
+
+<para>
+  Starting <application>GBonds</application> opens the <interface>Main
+  window</interface>, shown in <xref linkend="mainwindow-fig"/>.
+</para>
+
+<figure id="mainwindow-fig">
+  <title>GBonds Main Window</title>
+  <screenshot>
+    <screeninfo>GBonds Main Window</screeninfo>
+    <graphic fileref="figures/main-window.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  From here you will see the <link linkend="menubar">menu bar</link>
+  which provides all the options, commands and tools for
+  <application>GBonds</application>.  You will also see the <link
+  linkend="toolbar">toolbar</link> which provides quick access the
+  basic commands you will probably use the most when using
+  <application>GBonds</application>.  Below the menu bar and toolbar
+  is an <link linkend="inventory-worksheet">inventory
+  worksheet</link>.
+</para>
+
+</sect2>
+
+
+<!-- Menus =============================================================== --> 
+<sect2 id="menubar"> <title>Menus</title>
+
+<para>
+  The menu bar (shown in <xref linkend="figure-usage-menu-bar"/>) provides
+  access to all tools, commands and options for
+  <application>GBonds</application>.
+</para>
+
+<figure id="figure-usage-menu-bar">
+  <title>GBonds Menu Bar</title>
+  <screenshot>
+    <screeninfo>GBonds Menu Bar</screeninfo>
+    <graphic fileref="figures/menu-bar.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  The menu bar contains the following menus:
+</para>
+
+<variablelist>
+
+  <!-- Begin File Menu ==================================================== -->
+  <varlistentry>
+
+    <term><guimenu>File</guimenu></term>
+
+    <listitem>
+      <para>
+        This menu contains:
+
+        <itemizedlist>
+
+          <listitem>
+	    <para>
+	      <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>New</guimenuitem>
+              </menuchoice>
+              &mdash; This creates a new empty
+              <application>GBonds</application> worksheet.
+            </para>
+          </listitem>
+
+          <listitem>
+	    <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Open</guimenuitem>
+              </menuchoice>
+              &mdash; This opens an existing inventory file reads it into a new
+              <application>GBonds</application> worksheet.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice><guimenuitem>Import</guimenuitem></menuchoice>
+              &mdash; This imports an existing <productname>Savings Bond
+              Wizard</productname> (.SBW) file into a new
+              <application>GBonds</application> worksheet.
+            </para>
+          </listitem>
+
+	  <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Save</guimenuitem>
+              </menuchoice>
+              &mdash; This saves the current inventory to file.
+            </para>
+	  </listitem>
+
+          <listitem>
+	    <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>Shift</keycap><keycap>S</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Save As</guimenuitem>
+              </menuchoice>
+              &mdash; This saves the current inventory to a new file with a
+              different name.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>P</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Print</guimenuitem>
+              </menuchoice>
+              &mdash; This prints the current inventory.  See
+              <link linkend="printing">Printing Inventories</link> for more
+              information on printing inventories..
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Close</guimenuitem>
+              </menuchoice>
+              &mdash; This closes the current <application>GBonds</application>
+              worksheet.
+	    </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>Q</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Quit</guimenuitem>
+              </menuchoice>
+              &mdash; This closes all <application>GBonds</application>
+              worksheets and exits the application.
+            </para>
+          </listitem>
+
+        </itemizedlist>
+
+      </para>
+    </listitem>
+
+  </varlistentry>
+  <!-- End File Menu ====================================================== -->
+	
+  <!-- Begin Edit Menu ==================================================== -->
+  <varlistentry>
+
+    <term><guimenu>Edit</guimenu></term>
+
+    <listitem>
+      <para>
+        This menu contains:
+
+        <itemizedlist>
+
+          <listitem>
+            <para>
+	      <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Cut</guimenuitem>
+              </menuchoice>
+              &mdash; Moves selected bonds to the clipboard.  See
+              <link linkend="using-clipboard">Using the Clipboard</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+	      <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Copy</guimenuitem>
+              </menuchoice>
+              &mdash; Copies selected bonds to the clipboard.  See
+              <link linkend="using-clipboard">Using the Clipboard</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>
+                </shortcut>
+                <guimenuitem>Paste</guimenuitem>
+              </menuchoice>
+              &mdash; Pastes bonds from the clipboard into the inventory.
+              See <link linkend="using-clipboard">Using the Clipboard</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+	      <menuchoice><guimenuitem>Select All</guimenuitem></menuchoice>
+              &mdash; Selects all bonds in the inventory.  See
+              <link linkend="select-bonds">Selecting Bonds in an
+              Inventory</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice><guimenuitem>Unselect All</guimenuitem></menuchoice>
+              &mdash; Removes all selections in the inventory.  See
+              <link linkend="select-bonds">Selecting Bonds in an
+              Inventory</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice><guimenuitem>Add</guimenuitem></menuchoice>
+              &mdash; Adds a bond to the inventory.  See
+              <link linkend="adding-bonds">Adding Bonds to an Inventory</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycap>Delete</keycap>
+                </shortcut>
+                <guimenuitem>Delete</guimenuitem>
+              </menuchoice>
+              &mdash; Deletes the currently selected bond(s)
+              from the inventory.  See
+              <link linkend="deleting-bonds">Deleting Bonds from an
+              Inventory</link>.
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>
+              <menuchoice><guimenuitem>Title</guimenuitem></menuchoice>
+              &mdash; Creates or modifies the inventory title.  See
+              <link linkend="editing-title">Editing an Inventory's
+              Title</link>.
+            </para>
+          </listitem>
+
+           <listitem>
+             <para>
+               <menuchoice><guimenuitem>Preferences</guimenuitem></menuchoice>
+               &mdash; Set user preferences.  See
+               <link linkend="customization">Customization</link>.
+             </para>
+           </listitem>
+
+        </itemizedlist>
+
+      </para>
+    </listitem>
+
+  </varlistentry>
+  <!-- End Edit Menu ====================================================== -->
+	
+  <!-- Begin Toolss Menu ================================================ -->
+  <varlistentry>
+
+    <term><guimenu>Tools</guimenu></term>
+
+    <listitem>
+      <para>
+        This menu contains:
+
+        <itemizedlist>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <guimenuitem>Update redemption tables</guimenuitem>
+              </menuchoice>
+              &mdash; Launches a druid to download and install new redemption
+              tables.  See <link linkend="updating-redemption-data">Updating
+              Redemption Data</link>.
+            </para>
+           </listitem>
+
+         </itemizedlist>
+
+       </para>
+     </listitem>
+
+   </varlistentry>
+  <!-- End Settings Menu ================================================== -->
+
+  <!-- Begin Help Menu ==================================================== -->
+  <varlistentry>
+
+    <term><guimenu>Help</guimenu></term>
+
+    <listitem>
+      <para>
+        This menu contains:
+
+        <itemizedlist>
+
+          <listitem>
+            <para>
+              <menuchoice>
+                <shortcut>
+                  <keycap>F1</keycap>
+                </shortcut>
+                <guimenuitem>Contents</guimenuitem>
+              </menuchoice>
+              &mdash; This opens the <application>GNOME Help
+              Browser</application> and displays this manual.
+            </para>
+          </listitem>
+		
+          <listitem>
+            <para>
+              <menuchoice><guimenuitem>About</guimenuitem></menuchoice>
+              &mdash; This opens the <interface>About</interface> dialog which
+              shows basic information about <application>GBonds</application>,
+              such as author, version number, URL of the
+              <application>GBonds</application> web page, copyright, and
+              license information.
+            </para>
+          </listitem>
+
+        </itemizedlist>
+
+      </para>
+    </listitem>
+
+  </varlistentry>
+  <!-- End Help Menu ====================================================== -->
+
+</variablelist>
+
+</sect2>
+
+
+<!-- Toolbar ============================================================== -->
+<sect2 id="toolbar"> <title>Toolbar</title>
+
+<para>
+  The toolbar (shown in <xref linkend="figure-usage-toolbar"/>) provides quick
+  access to several commonly used commands.
+</para>
+
+<figure id="figure-usage-toolbar">
+  <title>GBonds Toolbar</title>
+  <screenshot>
+    <screeninfo>GBonds Toolbar</screeninfo>
+    <graphic fileref="figures/tool-bar.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  The following commands are available from the toolbar:
+</para>
+
+<variablelist>
+
+  <varlistentry>
+    <term><guibutton>Add</guibutton></term>
+    <listitem>
+      <para>
+        Adds a bond to the inventory.  See <link linkend="adding-bonds">Adding
+        Bonds to an Inventory</link>.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Delete</guibutton></term>
+    <listitem>
+      <para>
+        Deletes the currently selected bond from the inventory.  See
+        <link linkend="deleting-bonds">Deleting Bonds from an Inventory</link>.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Save</guibutton></term>
+    <listitem>
+      <para>
+        Saves the current inventory.
+      </para>
+    </listitem> 
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Print</guibutton></term>
+    <listitem>
+      <para>
+        Prints the inventory.  See
+        <link linkend="printing">Printing Inventories</link>.
+      </para>
+    </listitem> 
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Cut</guibutton></term>
+    <listitem>
+      <para>
+        Moves selected bonds to the clipboard.  See
+        <link linkend="using-clipboard">Using the Clipboard</link>.
+      </para>
+    </listitem> 
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Copy</guibutton></term>
+    <listitem>
+      <para>
+        Copies selected bonds to the clipboard.  See
+        <link linkend="using-clipboard">Using the Clipboard</link>.
+      </para>
+    </listitem> 
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Paste</guibutton></term>
+    <listitem>
+      <para>
+        Pastes bonds from the clipboard into the inventory.
+        See <link linkend="using-clipboard">Using the Clipboard</link>.
+      </para>
+    </listitem> 
+  </varlistentry>
+
+</variablelist>
+
+</sect2>
+
+
+<!-- Inventory Worksheet ================================================== -->
+<sect2 id="inventory-worksheet"> <title>Inventory Worksheet</title>
+
+<para>
+  Each open savings bond inventory will have a worksheet (as shown
+  in <xref linkend="worksheet-fig"/>).  
+</para>
+
+<figure id="worksheet-fig">
+  <title>Inventory Worksheet</title>
+  <screenshot>
+    <screeninfo>Inventory Worksheet</screeninfo>
+    <graphic fileref="figures/worksheet.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  This worksheet has 3 distinct components, the <link
+  linkend="redemption-date">redemption date entry</link>,
+  the <link linkend="inventory-totals">inventory totals</link>,
+  and the <link linkend="bond-inventory">bond inventory</link> itself.
+</para>
+
+
+<!-- Redemption Date Area +++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<sect3 id="redemption-date">
+<title>Redemption Date Entry and Display Area</title>
+
+<para>
+  The redemption date entry (shown in <xref linkend="redemption-date-fig"/>)
+  shows the current redemption date (month and year) used to calculate the
+  current values of all bonds in the inventory.
+</para>
+
+<figure id="redemption-date-fig">
+  <title>Redemption Date Entry and Display Area</title>
+  <screenshot>
+    <screeninfo>Redemption Date Entry and Display Area</screeninfo>
+    <graphic fileref="figures/redemption-date.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  The default value for this date is the current month and year,
+  if redemption data is available.  Otherwise, this date is set
+  to closest date for which redemption data exists.  For more
+  information on updating redemption data, see <link
+  linkend="updating-redemption-data">Updating Redemption Data</link>.
+  To change the current redemption date simply press the small arrow
+  button to the right of this display.  This will produce a dropdown
+  list of all dates for which redemption data exists.  Once a
+  new date is selected, the value and related information of all
+  bonds in the inventory will be updated for the given date.
+</para>
+
+</sect3>
+
+
+<!-- Inventory Totals Display Area ++++++++++++++++++++++++++++++++++++++++ -->
+<sect3 id="inventory-totals"><title>Inventory Totals Display Area</title>
+
+<para>
+  The Inventory Totals display (shown in <xref linkend="inventory-totals-fig"/>)
+  shows several total values associated with the current inventory.
+</para>
+
+<figure id="inventory-totals-fig">
+  <title>Inventory Totals Display Area</title>
+  <screenshot>
+    <screeninfo>Inventory Totals Display Area</screeninfo>
+    <graphic fileref="figures/totals.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  The following totals are displayed:
+</para>
+
+<variablelist>
+
+  <varlistentry>
+    <term><guibutton>Inventory Value</guibutton></term>
+    <listitem>
+      <para>
+        This is the total value of all bonds in the inventory,
+        including bonds which are not yet eligible for redemption.
+        When a bond is not eligible for redemption, the purchase
+        price is used for the current value of the bond for this total.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Redemption Value</guibutton></term>
+    <listitem>
+      <para>
+        This is the total value of all bonds in the inventory which are
+        eligible for redemption.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Interest</guibutton></term>
+    <listitem>
+      <para>
+        This is the total interest earned on all bonds in the inventory.
+      </para>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+<!-- Bond Inventory Area ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<sect3 id="bond-inventory"> <title>Bond Inventory Area</title>
+
+<para>
+  The bond inventory area (shown in <xref linkend="inventory-fig"/>) displays
+  all bonds and associated information in the inventory.
+</para>
+
+<figure id="inventory-fig">
+  <title>Bond Inventory</title>
+  <screenshot>
+    <screeninfo>Bond Inventory</screeninfo>
+    <graphic fileref="figures/inventory.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  This area is composed of one line or row per savings bond or note.
+  The inventory can be sorted by any of the bond data shown
+  simply by pressing the corresponding column header.  The following
+  data is represented by columns in this table:
+</para>
+
+<variablelist>
+
+  <varlistentry>
+    <term><guibutton>Serial Number</guibutton></term>
+    <listitem>
+      <para>
+        This is the Serial Number printed on the bond.  For more
+        information on the makeup of this serial number, see
+        <link linkend="adding-bonds">Adding Bonds to an Inventory</link>.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Issue Date</guibutton></term>
+    <listitem>
+      <para>
+        This is the issue or purchase date (month and year) of the bond.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Denomination</guibutton></term>
+    <listitem>
+      <para>
+        This is the denomination printed on the bond.  For series EE bonds,
+        this is twice the purchase price.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Series</guibutton></term>
+    <listitem>
+      <para>
+        This is the bond series (E, EE, I or S).
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Value</guibutton></term>
+    <listitem>
+      <para>
+        This is the current value of the bond if redeemed on the given
+        redemption date.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Interest</guibutton></term>
+    <listitem>
+      <para>
+        This is the total interest earned on the bond since purchase.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Yield To Date</guibutton></term>
+    <listitem>
+      <para>
+        This is the effective semi-annual (6 month) yield of the bond.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Next Accrual</guibutton></term>
+    <listitem>
+      <para>
+        This is the date (month and year) of the next accrual of the
+        bond (the next time it will increase in value).
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Final Maturity</guibutton></term>
+    <listitem>
+      <para>
+        This is the date (month and year) that the bond ceases to earn
+        interest.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guibutton>Flags</guibutton></term>
+    <listitem>
+      <para>
+        The last unmarked column may contain one or more of the
+        following flags:
+      </para>
+      <itemizedlist spacing="compact">
+        <listitem>
+          <simpara>
+            <literal>*</literal>
+            &mdash; The bond is not yet eligible for redemption.
+          </simpara>
+        </listitem>
+        <listitem>
+          <simpara>
+            <literal>M</literal> &mdash; The bond has reached final maturity.
+          </simpara>
+        </listitem>
+      </itemizedlist>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+
+</sect3>
+
+
+</sect2>
+
+</sect1>
+
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Editing Inventories                                                   -->
+<!-- ********************************************************************* -->
+<sect1 id="edit-inv"> <title>Editing Inventories</title>
+
+<para>
+  This section describes the inventory editing capabilities of
+  <application>GBonds</application>.
+</para>
+
+
+<!-- Adding Bonds ========================================================= -->
+<sect2 id="adding-bonds"> <title>Adding Bonds to an Inventory</title>
+
+<para>
+  The <guilabel>Add Bond</guilabel> dialog (shown in
+  <xref linkend="add-bond-dialog-fig"/>) is activated from either the
+  <guimenuitem>Edit->Add</guimenuitem> or the <guibutton>Add</guibutton>
+  toolbar button.  This dialog is used to create a new bond entry in
+  the current inventory.
+</para>
+
+<figure id="add-bond-dialog-fig">
+  <title>Add Bond Dialog</title>
+  <screenshot>
+    <screeninfo>Add Bond Dialog</screeninfo>
+    <graphic fileref="figures/add-dialog.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  All necessary information for a single bond is derived from just two text
+  fields.  These fields are:
+</para>
+
+<variablelist termlength="10">
+
+  <varlistentry>
+    <term><guilabel>Serial Number:</guilabel></term>
+    <listitem>
+      <para>
+        This is the serial number printed on the bond.  A couple
+        of key pieces of information are extracted from the
+        serial number by <application>GBonds</application>, so the
+        serial number must be entered in its entirety.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term><guilabel>Issue Date:</guilabel></term>
+    <listitem>
+      <para>
+        This is the issue or purchase date of the bond.
+        The format must be <literal>MM/YYYY</literal>, where
+        <literal>MM</literal> (month) is an integer from 1 to 12,
+        and <literal>YYYY</literal> (year) is a four digit integer
+        greater than or equal to 1940.
+      </para>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+
+<para>
+  Once both fields are entered, pressing the <guibutton>OK</guibutton>
+  button will add the bond to the inventory.  Pressing the
+  <guibutton>Cancel</guibutton> button will dismiss the dialog without
+  adding the bond.
+</para>
+
+<note>
+  <title>Anatomy of a Serial Number</title>
+
+  <para>
+    The first digit/character indicates denomination:
+  </para>
+
+  <itemizedlist spacing="compact">
+    <listitem><simpara><literal>Q =     $25</literal></simpara></listitem>
+    <listitem><simpara><literal>L =     $50</literal></simpara></listitem>
+    <listitem><simpara><literal>K =     $75</literal></simpara></listitem>
+    <listitem><simpara><literal>C =    $100</literal></simpara></listitem>
+    <listitem><simpara><literal>R =    $200</literal></simpara></listitem>
+    <listitem><simpara><literal>D =    $500</literal></simpara></listitem>
+    <listitem><simpara><literal>M =  $1,000</literal></simpara></listitem>
+    <listitem><simpara><literal>V =  $5,000</literal></simpara></listitem>
+    <listitem><simpara><literal>X = $10,000</literal></simpara></listitem>
+  </itemizedlist>
+
+  <para>
+    The last 1 or 2 digits/characters indicate series.
+    If the last digit is a numeral (0-9), then the bond is a series S (Savings
+    Note).  Otherwise, the last alphabetic digits indicate the series:
+    <literal>EE</literal>, <literal>E</literal>, or <literal>I</literal>.
+    <application>GBonds</application> does not currently handle any other
+    series of bond.
+  </para>
+
+  <para>
+    All other digits provide a unique identification of a bond.
+  </para>
+
+</note>
+
+</sect2>
+
+
+<!-- Selecting Bonds ====================================================== -->
+<sect2 id="select-bonds"> <title>Selecting Bonds in an Inventory</title>
+
+<para>
+  A prerequisite for the delete and cut/copy operations is the selection of
+  a bond or set of bonds.
+</para>
+
+<variablelist>
+
+  <varlistentry>
+    <term>Selecting a single bond</term>
+    <listitem>
+      <para>
+        A single bond can be selected simply by clicking
+        on the desired bond (row) in the bond inventory area of a worksheet.
+        Once selected the bond will be highlighted.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>Aggregate bond selections</term>
+    <listitem>
+      <para>
+        Multiple adjacent bonds can be selected by first selecting the first
+        bond as above and then by holding the <keycap>Shift</keycap> key while
+        selecting the last bond in the sequence.  Individual bonds can be added
+        to an existing selection by holding the <keycap>Ctrl</keycap> key while
+        selecting the desired bonds.  All bonds in an inventory can also be
+        selected by using the <guimenuitem>Edit->Select All</guimenuitem>
+        menu item.  All bonds in an aggregate bond selection will be
+        highlighted.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>Unselecting bonds</term>
+    <listitem>
+      <para>
+        Individual bonds can be removed from an existing selection by holding
+        the <keycap>Ctrl</keycap> key while clicking on a previously selected
+        bond.  An entire selection can be dismissed by using the
+        <guimenuitem>Edit->Unselect All</guimenuitem> menu item.  Once a bond
+        is unselected the highlight is removed from its entry.
+      </para>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+
+</sect2>
+
+
+<!-- Deleting Bonds ======================================================= -->
+<sect2 id="deleting-bonds"> <title>Deleting Bonds from an Inventory</title>
+
+<para>
+  Before a bond can be deleted, it must be selected (see
+  <link linkend="select-bonds">above</link>).  Both individual bonds and
+  groups of bonds can be deleted at one time.  Once a bond (or group of bonds)
+  is selected, the delete command is activated from either the
+  <guimenuitem>Edit->Delete</guimenuitem> menu item or the
+  <guibutton>Delete</guibutton> toolbar button.  This will activate a
+  confirmation dialog (shown in <xref linkend="delete-dialog-fig"/>) for each
+  selected bond.
+</para>
+
+<figure id="delete-dialog-fig">
+  <title>Delete Bond Confirmation Dialog</title>
+  <screenshot>
+    <screeninfo>Delete Bond Confirmation Dialog</screeninfo>
+    <graphic fileref="figures/delete-question.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  This is a simple <guibutton>Yes</guibutton> or <guibutton>No</guibutton>
+  dialog to confirm the intent to delete the selected bond.  When multiple
+  bonds are selected, there are 2 additional options:
+  <guibutton>Yes to All</guibutton> (to confirm the deletion of this bond and
+  all remaining bonds in the selection) and
+  <guibutton>Cancel</guibutton> (to cancel the deletion of this bond and all
+  remaining bonds in the selection).
+</para>
+
+<caution>
+  <title>Important</title>
+  <para>
+    Bonds deleted with this command are not placed on the clipboard.
+  </para>
+</caution>
+
+</sect2>
+
+
+
+<!-- Using the Clipboard ================================================== -->
+<sect2 id="using-clipboard"> <title>Using the Clipboard</title>
+
+<para>
+  Bonds can also be manipulated using the standard clipboard operations
+  <guimenuitem>Cut</guimenuitem>, <guimenuitem>Copy</guimenuitem> and
+  <guimenuitem>Paste</guimenuitem>.
+</para>
+
+<variablelist>
+
+  <varlistentry>
+    <term>
+      <menuchoice>
+        <shortcut>
+          <keycombo><keycap>Ctrl</keycap><keycap>X</keycap></keycombo>
+        </shortcut>
+        <guimenuitem>Cut</guimenuitem>
+      </menuchoice>
+    </term>
+    <listitem>
+      <para>
+        Moves selected bonds to the clipboard.  The bonds are then available
+        for pasting into another inventory, or as text into an external
+        application such as a spreadsheet or word processor.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>
+      <menuchoice>
+        <shortcut>
+          <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo>
+        </shortcut>
+        <guimenuitem>Copy</guimenuitem>
+      </menuchoice>
+    </term>
+    <listitem>
+      <para>
+        Copies selected bonds to the clipboard without deleting them.  The
+        bonds are then available for pasting into another inventory, or as
+        text into an external application such as a spreadsheet or word
+        processor.
+      </para>
+    </listitem>
+  </varlistentry>
+
+  <varlistentry>
+    <term>
+      <menuchoice>
+        <shortcut>
+          <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo>
+        </shortcut>
+        <guimenuitem>Paste</guimenuitem>
+      </menuchoice>
+    </term>
+    <listitem>
+      <para>
+        Pastes bonds from the clipboard into the inventory.
+        <application>GBonds</application> can only paste bonds from another
+        <application>GBonds</application> worksheet.
+      </para>
+    </listitem>
+  </varlistentry>
+
+</variablelist>
+
+</sect2>
+
+
+<!-- Editing an Inventory's Title ========================================= -->
+<sect2 id="editing-title"> <title>Editing an Inventory's Title</title>
+
+<para>
+  The <guilabel>Edit Inventory Title</guilabel> dialog (shown in
+  <xref linkend="edit-title-dialog-fig"/>) is activated from the
+  <guimenuitem>Edit->Title</guimenuitem> menu item.  This dialog is used to
+  create or edit the title of an inventory.
+</para>
+
+<figure id="edit-title-dialog-fig">
+  <title>Edit Inventory Title Dialog</title>
+  <screenshot>
+    <screeninfo>Edit Inventory Title Dialog</screeninfo>
+    <graphic fileref="figures/edit-title.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  Once a title is entered or modified, pressing the <guibutton>OK</guibutton>
+  button will activate the new title.  Pressing the
+  <guibutton>Cancel</guibutton> button will dismiss the dialog without
+  changing the current title.
+</para>
+
+</sect2>
+
+
+</sect1>
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Printing                                                              -->
+<!-- ********************************************************************* -->
+<sect1 id="printing"> <title>Printing Inventories</title>
+
+<para>
+  The <guilabel>Print Inventory</guilabel> dialog (shown in
+  <xref linkend="print-dialog-fig"/>) is activated from either the
+  <guimenuitem>File->Print</guimenuitem> menu item or the
+  <guibutton>Print</guibutton> toolbar button.
+</para>
+
+<figure id="print-dialog-fig">
+  <title>Print Dialog</title>
+  <screenshot>
+    <screeninfo>Print Dialog</screeninfo>
+    <graphic fileref="figures/print-dialog.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<para>
+  This dialog is the standard Gnome Print dialog to select a
+  printer and its options.  Once these options have been selected,
+  pressing the <guibutton>Print</guibutton> button will print
+  the inventory.  Pressing the <guibutton>Preview</guibutton>
+  button will launch the Print Preview shown in
+  <xref linkend="print-preview-fig"/>.
+</para>
+
+<figure id="print-preview-fig">
+  <title>Print Preview</title>
+  <screenshot>
+    <screeninfo>Print Preview</screeninfo>
+    <graphic fileref="figures/print-preview-2.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<caution>
+  <title>Important</title>
+  <para>
+    It is important to keep a permanent record of your
+    U.S. Savings Bonds in a separate location should you ever need
+    to replace them.
+  </para>
+</caution>
+
+</sect1>
+
+
+
+<!-- ********************************************************************* -->
+<!-- Customization                                                         -->
+<!-- ********************************************************************* -->
+<sect1 id="customization"> <title>Customization</title>
+
+<para>
+  This section describes how to customize the behavior of
+  <application>GBonds</application>.
+</para>
+
+
+<!-- Preferences Dialog =================================================== -->
+<sect2 id="preferences-dialog"> <title>Preferences Dialog</title>
+
+<para>
+  To customize <application>GBonds</application>, select the
+  <guimenuitem>Settings->Preferences</guimenuitem> menu command.
+  This opens the <guilabel>Preferences</guilabel> Dialog (shown in
+  <xref linkend="preferences-dialog-fig"/>).
+</para>
+
+<para>
+  This dialog allows you to modify the default behavior of the
+  <application>GBonds</application> application.  This dialog
+  consists of the following tabbed pages.
+</para>
+
+<sect3 id="prefs-startup"> <title>Startup Tab</title>
+
+<para>
+  The <guilabel>Startup</guilabel> page (shown in
+  <xref linkend="preferences-dialog-fig"/>) allows you to select the
+  default startup behavior of <application>GBonds</application>.
+  Options are to start up by opening a new blank inventory, by
+  opening the most recently accessed inventory, or by opening a
+  default inventory. If a default inventory is selected, the
+  location of this file must also be specified in the
+  corresponding file selection entry.
+</para>
+
+<figure id="preferences-dialog-fig">
+  <title>Preferences Dialog / Startup Tab</title>
+  <screenshot>
+    <screeninfo>Preferences Dialog / Startup Tab</screeninfo>
+    <graphic fileref="figures/prefs-startup.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+</sect3>
+
+<sect3 id="prefs-rdates"> <title>Redemption Dates Tab</title>
+
+<para>
+  The <guilabel>Redemption Dates</guilabel> page (shown in
+  <xref linkend="preferences-dialog-rdates-tab-fig"/>) allows you to select the
+  scope of redemption date choices available in the
+  <link linkend="redemption-date">Redemption Date Entry</link>'s dropdown list.
+  Options are to limit the choices to only the latest 12 months for which
+  redemption data exists (the default) or to include all dates for which
+  redemption data exists.
+</para>
+
+<figure id="preferences-dialog-rdates-tab-fig">
+  <title>Preferences Dialog / Redemption Dates Tab</title>
+  <screenshot>
+    <screeninfo>Preferences Dialog / Redemption Dates Tab</screeninfo>
+    <graphic fileref="figures/prefs-rdates.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+</sect3>
+
+</sect2>
+
+
+</sect1>
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Updating Redemption Data                                              -->
+<!-- ********************************************************************* -->
+<sect1 id="updating-redemption-data"> <title>Updating Redemption Data</title>
+
+<para>
+  <application>GBonds</application> cannot predict the future.  It requires
+  redemption tables which are published by the U.S. Treasury Department
+  every 6 months.
+  <application>GBonds</application> version &appversion; is pre-configured
+  with redemption data for Sep 2000 through Aug 2001.
+  New redemption data can be downloaded and installed either
+  <link linkend="manual-update">Manually</link> or with the
+  <link linkend="druid-update">Update Redemption Tables Druid</link>.
+</para>
+
+
+<!-- Update Redemption Tables Druid ======================================= -->
+<sect2 id="druid-update"> <title>Update Redemption Tables Druid</title>
+
+<para>
+  To update redemption data, select the
+  <guimenuitem>Settings->Update redemption tables</guimenuitem> menu
+  command.
+  This launches the <guilabel>Update redemption tables druid</guilabel>
+  (illustrated in <xref linkend="druid-1-fig"/> - 
+  <xref linkend="druid-4-fig"/>).  This druid automates and guides
+  the process of downloading and installing new redemption data.
+</para>
+
+<figure id="druid-1-fig">
+  <title>Update Druid Start Page</title>
+  <screenshot>
+    <screeninfo>Update Druid Start Page</screeninfo>
+    <graphic fileref="figures/druid-1.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<figure id="druid-2-fig">
+  <title>Update Druid Select Download Site Page</title>
+  <screenshot>
+    <screeninfo>Update Druid Select Download Site Page</screeninfo>
+    <graphic fileref="figures/druid-2.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<figure id="druid-3-fig">
+  <title>Update Druid Downloading Page</title>
+  <screenshot>
+    <screeninfo>Update Druid Downloading Page</screeninfo>
+    <graphic fileref="figures/druid-3.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+<!-- ==== Figure ==== -->
+<figure id="druid-4-fig">
+  <title>Update Druid Finish Page</title>
+  <screenshot>
+    <screeninfo>Update Druid Finish Page</screeninfo>
+    <graphic fileref="figures/druid-4.png" format="PNG"/>
+  </screenshot>
+</figure>
+
+</sect2>
+
+
+<!-- Manually Updating Redemption Data ==================================== -->
+<sect2 id="manual-update"> <title>Manually Updating Redemption Data</title>
+
+<para>
+  New redemption tables can be downloaded from one of the following sites.
+</para>
+
+<itemizedlist spacing="compact">
+
+  <listitem><simpara>
+    <ulink url="http://snaught.com/gbonds/data/" type="http">
+      http://snaught.com/gbonds/data/
+    </ulink>
+  </simpara></listitem>
+
+  <listitem><simpara>
+    <ulink url="ftp://ftp.snaught.com/gbonds/data/" type="ftp">
+      ftp://ftp.snaught.com/gbonds/data/
+    </ulink>
+  </simpara></listitem>
+
+  <listitem><simpara>
+    <ulink url="http://www.publicdebt.treas.gov/sav/savvalue.htm" type="http">
+      http://www.publicdebt.treas.gov/sav/savvalue.htm
+    </ulink>
+  </simpara></listitem>
+
+  <listitem><simpara>
+    <ulink url="ftp://ftp.publicdebt.treas.gov/" type="ftp">
+      ftp://208.131.225.4/
+    </ulink>
+  </simpara></listitem>
+
+</itemizedlist>
+
+<para>
+  Redemption table file names are of the format
+  <filename>sbyyyymm.asc</filename> where <filename>yyyymm</filename>
+  is the first year and month of the data in the file.  For example, data
+  for March 2001 through August 2001 would be in a file named
+  <filename>sb200103.asc</filename>.  To install a new redemption file,
+  simply download it into the <filename>.gbonds/</filename>
+  directory under your home directory.  <application>GBonds</application>
+  will automatically find the new data the next time it is started.
+</para>
+
+<note>
+  <title>Filename of Redemption Table</title>
+  <para>
+    Do not change the name of the redemption file -- it must have a
+    <filename>.asc</filename> extension for <application>GBonds</application>
+    to find it.
+  </para>
+</note>
+
+<example>
+  <title>Manually updating redemption data using FTP from command line</title>
+  <screen>
+    $ ftp ftp.snaught.com
+    Name (ftp.snaught.com:jsmith): anonymous
+    Password:jsmith@
+    230 Logged in anonymously.
+    ftp>cd gbonds/data
+    250 "/gbonds" is new cwd
+    ftp>lcd ~/.gbonds
+    Local directory now /home1/jsmith/.gbonds
+    ftp> get ~/sb200109.asc
+    local: sb200109.asc remote: sb200109.asc
+    226 Transfer completed.
+    35700 bytes received in 0.902 secs (39 Kbytes/sec)
+    ftp>quit
+    221 Goodbye.
+    $ gbonds
+  </screen>
+</example>
+
+</sect2>
+
+
+</sect1>
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Bugs                                                                  -->
+<!-- ********************************************************************* -->
+<sect1 id="bugs"> <title>Known Bugs and Limitations</title>
+
+<para>
+  At the time of this writing <application>GBonds &appversion;</application>
+  has no known bugs.  Up to date information can be found on the <ulink
+  url="http://snaught.com/gbonds/" type="http">GBonds Web Page</ulink>.
+</para>
+
+<para>
+  Version &appversion; should be considered a beta release, however it
+  should be perfectly usable.
+</para>
+
+<para>
+  Please send any bug reports, suggestions, or patches to
+  <email>evins@snaught.com</email>.
+</para>
+
+ </sect1>
+
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Authors                                                               -->
+<!-- ********************************************************************* -->
+<sect1 id="authors"> <title>Authors</title>
+
+<para>
+  <application>GBonds</application> was written by Jim Evins
+  (<email>evins@snaught.com</email>). To find more information about
+  <application>GBonds</application>, please visit the <ulink
+  url="http://snaught.com/gbonds/" type="http">GBonds Web
+  page</ulink>.  Please send all comments, suggestions, and bug
+  reports to the <email>evins@snaught.com</email>.
+</para>
+
+<para>
+  This manual was written by Jim Evins (<email>evins@snaught.com</email>).
+  Please send all comments and suggestions regarding this manual to the
+  <email>evins@snaught.com</email>.
+</para>
+
+<!-- For translations: uncomment this:
+
+<para>
+  Latin translation was done by ME
+  (<email>MYNAME@MYADDRESS</email>). Please send all  comments  and
+  suggestions regarding this translation to SOMEWHERE.
+</para>
+
+-->
+
+</sect1>
+
+
+
+
+<!-- ********************************************************************* -->
+<!-- Application License                                                   -->
+<!-- ********************************************************************* -->
+<sect1 id="license"> <title>License</title>
+
+<para>
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the
+  <citetitle>GNU General Public License</citetitle> as
+  published by the Free Software Foundation; 
+  either version 2 of the License, or (at your option) any later
+  version.
+</para>
+
+<para>
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  <citetitle>GNU General Public License</citetitle> for more details.
+</para>
+
+<para>
+  A copy of the <citetitle>GNU General Public License</citetitle> is
+  included as an appendix to the <citetitle>GNOME Users
+  Guide</citetitle>.  You may also obtain a copy of the
+  <citetitle>GNU General Public License</citetitle> from the Free
+  Software Foundation by visiting <ulink type="http"
+  url="http://www.fsf.org">their Web site</ulink> or by writing to
+  <address>
+    Free Software Foundation, Inc.
+    <street>59 Temple Place</street> - Suite 330
+    <city>Boston</city>, <state>MA</state> <postcode>02111-1307</postcode>
+    <country>USA</country>
+  </address>
+</para>
+
+
+</sect1>
+
+
+</article>

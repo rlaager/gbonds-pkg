@@ -1,0 +1,62 @@
+Copyright
+=========
+
+   Gbonds - a GNOME-based Savings Bond Inventory Program
+
+   Copyright (C) 2000 Jim Evins
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+   For more details see the file COPYING.
+
+
+What is Gbonds
+==============
+
+Gbonds is a program for maintaining inventories of U.S. Savings Bonds for
+the GNOME desktop environment.  It allows you to track the current redemption
+value and performance of your bonds.
+
+Gbonds is similar in functionality to "Savings Bond Wizard[TM]" program
+distributed by the U.S. Department of the Treasury.  Gbonds can import
+inventories created by the Savings Bond Wizard.
+
+
+System Requirements
+===================
+
+GTK+-2.2.x
+LIBGNOME-2.2.x
+LIBGNOMEUI-2.2.x
+LIBGNOMEPRINT-2.2.x
+LIBGNOMEPRINTUI-2.2.x
+LIBXML-2.5.x
+GNOME-VFS-2.2.x
+
+All of these libraries are available as part of Gnome 2.2.
+
+Note: to compile GBonds on RPM based systems, you will need the development
+RPMs (e.g. gnome-vfs-devel) installed for each of these libraries.
+
+Author
+======
+
+Jim Evins <evins@snaught.com>
+
+
+Disclaimer
+==========
+GBonds is not affiliated with or endorsed by the U.S. Treasury
+or the U.S. Government.
