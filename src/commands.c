@@ -29,6 +29,8 @@
 #include "commands.h"
 #include "view.h"
 #include "file.h"
+#include "edit.h"
+#include "update.h"
 #include "print-dialog.h"
 #include "prefs-dialog.h"
 #include "debug.h"
@@ -423,13 +425,6 @@ gb_cmd_help_about (BonoboUIComponent *uic,
 		NULL
 	};
 	
-	gchar *documenters[] = {
-		"",
-		NULL
-	};
-
-	gchar *translator_credits = _("");
-
 	gb_debug (DEBUG_COMMANDS, "");
 
 	g_return_if_fail (window && GB_IS_WINDOW(window));

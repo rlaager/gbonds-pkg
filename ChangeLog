@@ -1,3 +1,61 @@
+2008-11-15  Jim Evins  <evins@snaught.com>
+
+	* data/download-sites.xml:
+		Search Treasury ftp site by default.
+	* data/Makefile.am:
+	* data/sb200506.asc:
+	* data/sb200512.asc:
+	* data/sb200606.asc:
+	* data/sb200612.asc:
+	* data/sb200706.asc:
+	* data/sb200712.asc:
+	* data/sb200806.asc:
+	* data/sb200812.asc:
+		Added historical redemption data since last release.
+
+2008-11-15  Jim Evins  <evins@snaught.com>
+
+	* configure.in:
+		Preparation for version 2.0.3.
+	* src/commands.c: (gb_cmd_help_about):
+	* src/doc-sbw.c: (gb_doc_sbw_open):
+	* src/doc-sbw.h:
+	* src/doc-xml.c: (xml_to_doc), (xml_parse_doc), (doc_to_xml):
+	* src/file.c: (open_response), (gb_file_open_real),
+	(import_response), (import_real), (gb_file_save),
+	(save_as_response), (gb_file_close):
+	* src/gbonds.c: (main):
+	* src/prefs-dialog.c: (gb_prefs_dialog_construct),
+	(rdate_range_page):
+	* src/prefs.c: (gb_prefs_load_settings):
+	* src/print-dialog.c: (gb_print_dialog), (print_response):
+	* src/print.c: (gb_print), (print_info_new), (print_font),
+	(print_bold), (print_bold_end), (print_show), (print_show_right),
+	(print_show_center):
+	* src/recent.c: (gb_recent_get_filename):
+	* src/table-model.c: (append_tables_from_dir):
+	* src/ui.c: (gb_ui_init):
+	* src/update.c: (add_finish_page), (read_site_list):
+	* src/view.c: (gb_view_get_selected_bond_list), (gb_view_copy),
+	(selection_received_cb):
+	* src/window.c: (gb_window_set_doc):
+		Fixed various compiler warnings if compiled with "-O1 -Wall".
+	
+2008-11-15  Jim Evins  <evins@snaught.com>
+
+	* src/doc-xml.c: (gb_doc_xml_open):
+		Test xmldoc -- not doc.  This typo would test doc after
+		xmlParseFile() which is not initialized.
+	* src/recent.c:
+		Include string.h.
+	* src/splash.c: (gb_splash):
+		Fix 2 small memory leaks.
+
+2004-12-23  Jim Evins  <evins@snaught.com>
+
+	* gbonds.spec.in:
+		Don't install two .desktop files.
+
 2004-12-23  Jim Evins  <evins@snaught.com>
 
 	* data/Makefile.am:

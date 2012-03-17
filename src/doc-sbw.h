@@ -27,14 +27,8 @@
 G_BEGIN_DECLS
 
 
-typedef enum {
-	GB_DOC_SBW_OK = 0,
-	GB_DOC_SBW_ERROR_OPEN_PARSE = -10,
-} gbDocSBWStatus;
-
-
 extern gbDoc      *gb_doc_sbw_open          (const gchar    *filename,
-					     gbDocSBWStatus *status);
+					     gbStatus       *status);
 
 G_END_DECLS
 

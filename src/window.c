@@ -28,6 +28,7 @@
 #include "window.h"
 #include "util.h"
 #include "doc.h"
+#include "file.h"
 #include "doc-xml.h"
 
 #include "debug.h"
@@ -292,8 +293,6 @@ void
 gb_window_set_doc (gbWindow    *window,
 		   gbDoc       *doc)
 {
-	gchar *string;
-
 	gb_debug (DEBUG_WINDOW, "START");
 
 	g_return_if_fail (GB_IS_WINDOW (window));

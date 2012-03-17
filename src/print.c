@@ -160,7 +160,7 @@ gb_print (GnomePrintJob    *job,
 
   /* Begin new page */
   page_str = g_strdup_printf( "%d", i_page );
-  gnome_print_beginpage( pi->pc, page_str );
+  gnome_print_beginpage( pi->pc, (guchar *)page_str );
   g_free( page_str );
   print_page_header( pi, title, basename, i_page, n_pages, date_string );
 
@@ -186,7 +186,7 @@ gb_print (GnomePrintJob    *job,
 	  /* Begin new page */
 	  i_page++;
 	  page_str = g_strdup_printf( "%d", i_page );
-	  gnome_print_beginpage( pi->pc, page_str );
+	  gnome_print_beginpage( pi->pc, (guchar *)page_str );
 	  g_free( page_str );
 	  print_page_header( pi,
 			     title, basename, i_page, n_pages, date_string );
@@ -218,7 +218,7 @@ gb_print (GnomePrintJob    *job,
     /*---------------------------------------------*/
     i_page++;
     page_str = g_strdup_printf( "%d", i_page );
-    gnome_print_beginpage( pi->pc, page_str );
+    gnome_print_beginpage( pi->pc, (guchar *)page_str );
     g_free( page_str );
     print_page_header( pi, title, basename, i_page, n_pages, date_string );
     print_summary( pi,
@@ -545,28 +545,28 @@ print_info_new (GnomePrintJob *job)
   pi->config = gnome_print_job_get_config (job);
 
   gnome_print_config_get_length (pi->config,
-				 GNOME_PRINT_KEY_PAPER_WIDTH,
+				 (guchar *)GNOME_PRINT_KEY_PAPER_WIDTH,
 				 &pi->page_width,
 				 NULL);
   gnome_print_config_get_length (pi->config,
-				 GNOME_PRINT_KEY_PAPER_HEIGHT,
+				 (guchar *)GNOME_PRINT_KEY_PAPER_HEIGHT,
 				 &pi->page_height,
 				 NULL);
 
   gnome_print_config_get_length (pi->config,
-				 GNOME_PRINT_KEY_PAGE_MARGIN_TOP,
+				 (guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_TOP,
 				 &pi->margin_top,
 				 NULL);
   gnome_print_config_get_length (pi->config,
-				 GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM,
+				 (guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_BOTTOM,
 				 &pi->margin_bottom,
 				 NULL);
   gnome_print_config_get_length (pi->config,
-				 GNOME_PRINT_KEY_PAGE_MARGIN_LEFT,
+				 (guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_LEFT,
 				 &pi->margin_left,
 				 NULL);
   gnome_print_config_get_length (pi->config,
-				 GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT,
+				 (guchar *)GNOME_PRINT_KEY_PAGE_MARGIN_RIGHT,
 				 &pi->margin_right,
 				       NULL);
 
@@ -604,7 +604,7 @@ static void print_info_free( PrintInfo *pi )
 /*==================================================*/
 static void print_font( PrintInfo *pi, gchar *name, gint size )
 {
-  pi->font = gnome_font_find_closest_from_weight_slant (name,
+  pi->font = gnome_font_find_closest_from_weight_slant ((guchar *)name,
 							GNOME_FONT_BOOK,
 							FALSE,
 							size);
@@ -625,7 +625,7 @@ static void print_font( PrintInfo *pi, gchar *name, gint size )
 /*==================================================*/
 static void print_bold( PrintInfo *pi )
 {
-  pi->font = gnome_font_find_closest_from_weight_slant (pi->font_name,
+  pi->font = gnome_font_find_closest_from_weight_slant ((guchar *)pi->font_name,
 							GNOME_FONT_BOLD,
 							pi->font_italic,
 							pi->font_size);
@@ -640,7 +640,7 @@ static void print_bold( PrintInfo *pi )
 /*==================================================*/
 static void print_bold_end( PrintInfo *pi )
 {
-  pi->font = gnome_font_find_closest_from_weight_slant (pi->font_name,
+  pi->font = gnome_font_find_closest_from_weight_slant ((guchar *)pi->font_name,
 							GNOME_FONT_BOOK,
 							pi->font_italic,
 							pi->font_size);
@@ -655,7 +655,7 @@ static void print_bold_end( PrintInfo *pi )
 /*===================================================*/
 static void print_show( PrintInfo *pi, gchar *text )
 {
-  gnome_print_show( pi->pc, text );
+  gnome_print_show( pi->pc, (guchar *)text );
   pi->x += gnome_font_get_width_utf8( pi->font, text );
   gnome_print_moveto( pi->pc, pi->x, pi->y );
 }
@@ -670,7 +670,7 @@ static void print_show_right( PrintInfo *pi, gchar *text )
 {
   pi->x -= gnome_font_get_width_utf8( pi->font, text );
   gnome_print_moveto( pi->pc, pi->x, pi->y );
-  gnome_print_show( pi->pc, text );
+  gnome_print_show( pi->pc, (guchar *)text );
 }
 
 
@@ -682,7 +682,7 @@ static void print_show_center( PrintInfo *pi, gchar *text )
 {
   pi->x -= gnome_font_get_width_utf8( pi->font, text ) / 2.0;
   gnome_print_moveto( pi->pc, pi->x, pi->y );
-  gnome_print_show( pi->pc, text );
+  gnome_print_show( pi->pc, (guchar *)text );
 }
 
 
