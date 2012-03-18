@@ -89,3 +89,37 @@ Index: gbonds/configure.in
  gnome-vfs-2.0 >= $GNOMEVFS_REQUIRED \
  )
  
+Index: gbonds/src/gbonds-ui.xml
+===================================================================
+--- gbonds.orig/src/gbonds-ui.xml	2012-03-18 17:06:18.169893838 -0500
++++ gbonds/src/gbonds-ui.xml	2012-03-18 17:07:02.350964202 -0500
+@@ -19,10 +19,6 @@
+ 	pixtype="stock" pixname="gtk-save-as"
+ 	accel="*Shift**Control*S"/>
+ 
+-        <cmd name="FilePrint" _label="Print"
+-	_tip="Print the current file" pixtype="stock" pixname="gtk-print"
+-	accel="*Control*P"/>
+-	
+         <cmd name="FileClose" _label="Close"
+ 	_tip="Close the current file" pixtype="stock" pixname="gtk-close"
+ 	accel="*Control*W"/>
+@@ -114,10 +110,6 @@
+ 	
+         <menuitem name="FileSaveAs" verb="" _label="Save _As..."/>
+ 
+-	<separator/>
+-			
+-	<menuitem name="FilePrint" verb="" _label="_Print..."/>
+-
+ 	<placeholder name="FileOps_1" />
+ 
+ 	<placeholder name="FileOps_2" delimit="top"/>
+@@ -222,7 +214,6 @@
+ 	<separator/>
+ 
+ 	<toolitem name="FileSave" verb=""/>
+-	<toolitem name="FilePrint" verb=""/>
+ 	
+ 	<separator/>
+ 
