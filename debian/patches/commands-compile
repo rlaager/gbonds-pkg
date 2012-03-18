@@ -1,0 +1,18 @@
+Description: Fix a -Wformat-security warning
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2012-03-18
+
+Index: gbonds/src/commands.c
+===================================================================
+--- gbonds.orig/src/commands.c	2012-03-18 21:26:14.313197988 +0000
++++ gbonds/src/commands.c	2012-03-18 21:26:16.153241061 +0000
+@@ -385,7 +385,7 @@ gb_cmd_help_contents (BonoboUIComponent
+ 	
+ 	if (error != NULL)
+ 	{
+-		g_warning (error->message);
++		g_warning ("%s", error->message);
+ 
+ 		g_error_free (error);
+ 	}

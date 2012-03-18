@@ -2,3 +2,5 @@ POTFILES
 POTFILES.missing
 download-sites
 libgnomeprint
+commands-compile
+egg-recent-model-compile

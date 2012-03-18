@@ -1,0 +1,42 @@
+Description: Fix a -Wformat-security warning
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2012-03-18
+
+Index: gbonds/src/recent-files/egg-recent-model.c
+===================================================================
+--- gbonds.orig/src/recent-files/egg-recent-model.c	2012-03-17 23:39:04.345268865 +0000
++++ gbonds/src/recent-files/egg-recent-model.c	2012-03-18 20:32:29.122634594 +0000
+@@ -187,7 +187,10 @@ egg_recent_model_write_raw (EggRecentMod
+ 		g_warning ("Couldn't stat XML document.");
+ 
+ 	if ((off_t)len < sbuf.st_size) {
+-		ftruncate (fd, len);
++		if (ftruncate (fd, len) != 0) {
++			g_warning ("Failed to truncate:  %s", strerror (errno));
++			return FALSE;
++		}
+ 	}
+ 
+ 	if (fputs (content, file) == EOF)
+@@ -730,7 +733,7 @@ egg_recent_model_read (EggRecentModel *m
+ 	error = NULL;
+ 	if (!g_markup_parse_context_parse (ctx, content, strlen (content),
+ 					   &error)) {
+-		g_warning (error->message);
++		g_warning ("%s", error->message);
+ 		g_error_free (error);
+ 		error = NULL;
+ 		goto out;
+@@ -1497,7 +1500,10 @@ egg_recent_model_clear (EggRecentModel *
+ 	fd = fileno (file);
+ 
+ 	if (egg_recent_model_lock_file (file)) {
+-		ftruncate (fd, 0);
++		if (ftruncate (fd, 0) != 0) {
++			g_warning ("Failed to truncate:  %s", strerror (errno));
++			return;
++		}
+ 	} else {
+ 		g_warning ("Failed to lock:  %s", strerror (errno));
+ 		return;
