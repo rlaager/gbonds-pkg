@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-if [ -x "`which scrollkeeper-update 2>/dev/null`" ]; then
-	scrollkeeper-update -q
-fi
-
-#DEBHELPER#
