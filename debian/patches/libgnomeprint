@@ -4,9 +4,10 @@ Author: Richard Laager <rlaager@wiktel.com>
 Forwarded: no
 Last-Update: 2012-03-18
 
+Index: gbonds/src/Makefile.am
 ===================================================================
---- gbonds-2.0.2.orig/src/Makefile.am
-+++ gbonds-2.0.2/src/Makefile.am
+--- gbonds.orig/src/Makefile.am	2012-03-18 20:37:17.000000000 +0000
++++ gbonds/src/Makefile.am	2012-03-18 20:50:47.425806617 +0000
 @@ -36,8 +36,6 @@ gbonds_SOURCES = \
  	recent.h			\
  	file.c				\
@@ -25,21 +26,24 @@ Last-Update: 2012-03-18
  	prefs.c				\
  	prefs.h				\
  	update.c			\
---- gbonds-2.0.2.orig/src/ui.c
-+++ gbonds-2.0.2/src/ui.c
+Index: gbonds/src/ui.c
+===================================================================
+--- gbonds.orig/src/ui.c	2012-03-18 20:37:17.000000000 +0000
++++ gbonds/src/ui.c	2012-03-18 20:51:19.376482060 +0000
 @@ -53,7 +53,9 @@ static BonoboUIVerb gb_ui_verbs [] = {
  	BONOBO_UI_VERB ("FileImport",            gb_cmd_file_import),
  	BONOBO_UI_VERB ("FileSave",              gb_cmd_file_save),
  	BONOBO_UI_VERB ("FileSaveAs",            gb_cmd_file_save_as),
--	BONOBO_UI_VERB ("FilePrint",             gb_cmd_file_print),
 +#if 0
-+	BONOBO_UI_VERB ("FilePrint",             gb_cmd_file_print)
+ 	BONOBO_UI_VERB ("FilePrint",             gb_cmd_file_print),
 +#endif
  	BONOBO_UI_VERB ("FileClose",             gb_cmd_file_close),
  	BONOBO_UI_VERB ("FileExit",              gb_cmd_file_exit),
  	BONOBO_UI_VERB ("EditCut",               gb_cmd_edit_cut),
---- gbonds-2.0.2.orig/src/commands.h
-+++ gbonds-2.0.2/src/commands.h
+Index: gbonds/src/commands.h
+===================================================================
+--- gbonds.orig/src/commands.h	2012-03-18 20:37:17.000000000 +0000
++++ gbonds/src/commands.h	2012-03-18 20:50:47.425806617 +0000
 @@ -47,9 +47,11 @@ void gb_cmd_file_save_as         (Bonobo
  				  gpointer           user_data,
  				  const gchar       *verbname);
@@ -52,9 +56,11 @@ Last-Update: 2012-03-18
  
  void gb_cmd_file_print_preview   (BonoboUIComponent *uic,
  				  gpointer           user_data,
---- gbonds-2.0.2.orig/src/commands.c
-+++ gbonds-2.0.2/src/commands.c
-@@ -122,6 +122,7 @@ gb_cmd_file_save_as (BonoboUIComponent *
+Index: gbonds/src/commands.c
+===================================================================
+--- gbonds.orig/src/commands.c	2012-03-18 20:37:17.000000000 +0000
++++ gbonds/src/commands.c	2012-03-18 20:50:47.425806617 +0000
+@@ -124,6 +124,7 @@ gb_cmd_file_save_as (BonoboUIComponent *
  	gb_file_save_as (GB_VIEW(window->view)->doc, GTK_WINDOW(window));
  }
  
@@ -62,7 +68,7 @@ Last-Update: 2012-03-18
  /****************************************************************************/
  /* File->Print command.                                                     */
  /****************************************************************************/
-@@ -139,6 +140,7 @@ gb_cmd_file_print (BonoboUIComponent *ui
+@@ -141,6 +142,7 @@ gb_cmd_file_print (BonoboUIComponent *ui
  	gb_print_dialog (GB_VIEW(window->view), BONOBO_WINDOW(window));
  
  }
@@ -70,8 +76,10 @@ Last-Update: 2012-03-18
  
  /****************************************************************************/
  /* File->Close command.                                                     */
---- gbonds-2.0.2.orig/configure.in
-+++ gbonds-2.0.2/configure.in
+Index: gbonds/configure.in
+===================================================================
+--- gbonds.orig/configure.in	2012-03-18 20:37:17.000000000 +0000
++++ gbonds/configure.in	2012-03-18 20:50:47.425806617 +0000
 @@ -38,8 +38,6 @@ PKG_CHECK_MODULES(GBONDS, gtk+-2.0 >= $G
  libgnomeui-2.0 >= $LIBGNOMEUI_REQUIRED \
  libbonobo-2.0 >= $LIBBONOBO_REQUIRED \
