@@ -2,7 +2,8 @@ Description: Remove snaught.com from the download list
  It didn't have the latest redemption data.  This leaves only the
  official U.S. Treasury FTP site.
 Author: Richard Laager <rlaager@wiktel.com>
-Last-Update: 2010-05-29
+Forwarded: no
+Last-Update: 2012-03-18
 
 --- gbonds-2.0.3.orig/data/download-sites.xml
 +++ gbonds-2.0.3/data/download-sites.xml

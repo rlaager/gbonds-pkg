@@ -1,3 +1,10 @@
+Description: Disable printing support to remove the dependency on the
+ deprecated libgnomeprint library.
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2012-03-18
+
+===================================================================
 --- gbonds-2.0.2.orig/src/Makefile.am
 +++ gbonds-2.0.2/src/Makefile.am
 @@ -36,8 +36,6 @@ gbonds_SOURCES = \
