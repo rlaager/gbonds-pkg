@@ -1,0 +1,31 @@
+Description: Update the copyright years
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2012-03-18
+
+Index: gbonds/README
+===================================================================
+--- gbonds.orig/README	2012-03-18 21:03:31.621979401 +0000
++++ gbonds/README	2012-03-18 21:06:38.365936732 +0000
+@@ -3,7 +3,7 @@ Copyright
+ 
+    GBonds - a GNOME-based Savings Bond Inventory Program
+ 
+-   Copyright (C) 2000 Jim Evins
++   Copyright (C) 2000-2008 Jim Evins
+ 
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+Index: gbonds/src/commands.c
+===================================================================
+--- gbonds.orig/src/commands.c	2012-03-18 21:02:53.441170552 +0000
++++ gbonds/src/commands.c	2012-03-18 21:06:29.995759319 +0000
+@@ -403,7 +403,7 @@ gb_cmd_help_about (BonoboUIComponent *ui
+ 	static GtkWidget *about = NULL;
+ 	GdkPixbuf        *pixbuf = NULL;
+ 	
+-	gchar *copy_text = "Copyright 2001-2003 Jim Evins";
++	gchar *copy_text = "Copyright 2000-2008 Jim Evins";
+ 	gchar *about_text =
+ 		_("A savings bond inventory program for GNOME.\n"
+ 		  " \n"

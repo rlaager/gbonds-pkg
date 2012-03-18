@@ -1,0 +1,18 @@
+Description: Update the website URL
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2012-03-18
+
+Index: gbonds/src/commands.c
+===================================================================
+--- gbonds.orig/src/commands.c	2012-03-18 21:26:08.723067118 +0000
++++ gbonds/src/commands.c	2012-03-18 21:26:09.193078124 +0000
+@@ -423,7 +423,7 @@ gb_cmd_help_about (BonoboUIComponent *ui
+ 		"Jim Evins <evins@snaught.com>",
+ 		" ",
+ 		_("See the file AUTHORS for additional credits,"),
+-		_("or visit http://snaught.com/gbonds"),
++		_("or visit http://gbonds.sourceforge.net"),
+ 		NULL
+ 	};
+ 	

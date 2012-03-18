@@ -1,0 +1,51 @@
+Description: Be consistent about the application name
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2012-03-18
+
+Index: gbonds/README
+===================================================================
+--- gbonds.orig/README	2012-03-17 23:39:04.295267746 +0000
++++ gbonds/README	2012-03-18 21:03:31.621979401 +0000
+@@ -1,7 +1,7 @@
+ Copyright
+ =========
+ 
+-   Gbonds - a GNOME-based Savings Bond Inventory Program
++   GBonds - a GNOME-based Savings Bond Inventory Program
+ 
+    Copyright (C) 2000 Jim Evins
+ 
+@@ -22,15 +22,15 @@ Copyright
+    For more details see the file COPYING.
+ 
+ 
+-What is Gbonds
++What is GBonds
+ ==============
+ 
+-Gbonds is a program for maintaining inventories of U.S. Savings Bonds for
++GBonds is a program for maintaining inventories of U.S. Savings Bonds for
+ the GNOME desktop environment.  It allows you to track the current redemption
+ value and performance of your bonds.
+ 
+-Gbonds is similar in functionality to "Savings Bond Wizard[TM]" program
+-distributed by the U.S. Department of the Treasury.  Gbonds can import
++GBonds is similar in functionality to "Savings Bond Wizard[TM]" program
++distributed by the U.S. Department of the Treasury.  GBonds can import
+ inventories created by the Savings Bond Wizard.
+ 
+ 
+Index: gbonds/src/commands.c
+===================================================================
+--- gbonds.orig/src/commands.c	2012-03-18 20:50:47.425806617 +0000
++++ gbonds/src/commands.c	2012-03-18 21:02:53.441170552 +0000
+@@ -407,7 +407,7 @@ gb_cmd_help_about (BonoboUIComponent *ui
+ 	gchar *about_text =
+ 		_("A savings bond inventory program for GNOME.\n"
+ 		  " \n"
+-		  "Gbonds is free software; you can redistribute it and/or modify it "
++		  "GBonds is free software; you can redistribute it and/or modify it "
+ 		  "under the terms of the GNU General Public License as published by "
+ 		  "the Free Software Foundation; either version 2 of the License, or "
+ 		  "(at your option) any later version.\n" " \n"
