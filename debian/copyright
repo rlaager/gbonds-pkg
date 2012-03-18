@@ -1,10 +1,10 @@
-Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=135
-Name: GBonds
-Maintainer: Jim Evins <evins@snaught.com>
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: GBonds
+Upstream-Contact: Jim Evins <evins@snaught.com>
 Source: http://gbonds.sourceforge.net/download/
 
 Files: *
-Copyright: Copyright 2000-2004 Jim Evins <evins@snaught.com>
+Copyright: Copyright 2000-2008 Jim Evins <evins@snaught.com>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ License: other
  These files are public domain.
 
 Files: src/recent-files/egg-recent-util.c
-X-Packager-Explanation: This file refers to "/* ripped out of gedit2 */"
+Comment: This file refers to "/* ripped out of gedit2 */"
  The source file containing this method in gedit2 is gedit/gedit-utils.c.
 Copyright: 1998, 1999 Alex Roberts, Evan Lawrence
            2000, 2002 Chema Celorio, Paolo Maggi 
@@ -83,7 +83,7 @@ License: GFDL-1.1+
  COPYING-DOCS which shipped as part of this package.
 
 Files: debian/*
-Copyright: Copyright 2006–2010, Richard Laager <rlaager@wiktel.com>
+Copyright: Copyright 2006,2007,2010,2012, Richard Laager <rlaager@wiktel.com>
 License: GPL-2+
  This package is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -101,4 +101,3 @@ License: GPL-2+
  .
  On Debian systems, the complete text of the GNU General Public License
  can be found in file "/usr/share/common-licenses/GPL".
-
