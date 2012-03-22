@@ -2,6 +2,7 @@
 %:
 	dh  $@
 
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,-z,defs -Wl,--as-needed
 
 override_dh_auto_clean:
