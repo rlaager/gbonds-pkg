@@ -25,8 +25,8 @@ License: GPL-2+
 
 Files: data/sb*.asc debian/sb*.asc
 Copyright: Public Domain, U.S. Treasury
-License: other
- These files are public domain.
+License: public-domain
+ As works of the United States government, these files are public domain.
 
 Files: src/recent-files/egg-recent-util.c
 Comment: This file refers to "/* ripped out of gedit2 */"
