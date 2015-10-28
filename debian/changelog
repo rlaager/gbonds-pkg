@@ -1,20 +1,5 @@
-gbonds (2.0.3-4) unstable; urgency=medium
+gbonds (2.0.3-5) unstable; urgency=medium
 
-  * debian/copyright: Clarify the public-domain bit
-  * Add redemption data through 12/2013 (sb201306.asc)
-  * Capitalize Savings Bond in debian/control
-  * Add -lm when linking the executable
-  * Stop using gnome-common's xmldocs.make (Closes: 803041)
-  * Update Standards-Version to 3.9.6 (no changes)
-  * Depend on rarian-compat
-  * Add redemption data through 12/2015 (sb201506.asc)
-
- -- Richard Laager <rlaager@wiktel.com>  Tue, 27 Oct 2015 20:21:14 -0500
-
-gbonds (2.0.3-3) unstable; urgency=low
-
-  * Add redemption data through 06/2012 (sb201112.asc)
-  * Update Standards-Version to 3.9.3 (no changes)
   * Add a debian/.gitignore
   * Update patch metadata
   * Remove some stray trailing garbage from debian/patches/POTFILES
@@ -31,8 +16,14 @@ gbonds (2.0.3-3) unstable; urgency=low
   * Remove the print options from the GUI
   * Enable all hardening flags
   * Use debhelper version 9
+  * debian/copyright: Clarify the public-domain bit
+  * Capitalize Savings Bond in debian/control
+  * Stop using gnome-common's xmldocs.make (Closes: 803041)
+  * Update Standards-Version to 3.9.6 (no changes)
+  * Depend on rarian-compat
+  * Add redemption data through 12/2015 (sb201506.asc)
 
- -- Richard Laager <rlaager@wiktel.com>  Thu, 22 Mar 2012 06:08:39 +0000
+ -- Richard Laager <rlaager@wiktel.com>  Tue, 27 Oct 2015 21:18:47 -0500
 
 gbonds (2.0.3-2.2) unstable; urgency=low
 
