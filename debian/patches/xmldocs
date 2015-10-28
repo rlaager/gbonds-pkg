@@ -1,0 +1,51 @@
+Description: Update xmldocs.make to the last version from gnome-common
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2015-10-27
+
+Index: gbonds-pkg/xmldocs.make
+===================================================================
+--- gbonds-pkg.orig/xmldocs.make	2015-10-27 19:47:19.297162586 -0500
++++ gbonds-pkg/xmldocs.make	2015-10-27 19:55:06.759824474 -0500
+@@ -33,19 +33,17 @@
+ #
+ 
+ 
+-# ************* Begin of section some packagers may need to modify  **************
++# **********  Begin of section some packagers may need to modify  **********
+ # This variable (docdir) specifies where the documents should be installed.
+ # This default value should work for most packages.
+-# docdir = $(datadir)/@PACKAGE@/doc/$(docname)/$(lang)
+ docdir = $(datadir)/gnome/help/$(docname)/$(lang)
+ 
+-# **************  You should not have to edit below this line  *******************
++# **********  You should not have to edit below this line  **********
+ xml_files = $(entities) $(docname).xml
+ 
+ EXTRA_DIST = $(xml_files) $(omffile)
+ CLEANFILES = omf_timestamp
+ 
+-# If the following file is in a subdir (like help/) you need to add that to the path
+ include $(top_srcdir)/omf.make
+ 
+ all: omf
+@@ -85,7 +83,7 @@ uninstall-local-doc:
+ 	-if test "$(figdir)"; then \
+ 	  for file in $(srcdir)/$(figdir)/*.png; do \
+ 	    basefile=`echo $$file | sed -e  's,^.*/,,'`; \
+-	    rm -f $(docdir)/$(figdir)/$$basefile; \
++	    rm -f $(DESTDIR)$(docdir)/$(figdir)/$$basefile; \
+ 	  done; \
+ 	  rmdir $(DESTDIR)$(docdir)/$(figdir); \
+ 	fi
+@@ -94,3 +92,10 @@ uninstall-local-doc:
+ 	done
+ 	-rmdir $(DESTDIR)$(docdir)
+ 
++clean-local: clean-local-doc clean-local-omf
++
++# for non-srcdir builds, remove the copied entities.
++clean-local-doc:
++	if test $(srcdir) != .; then \
++	  rm -f $(entities); \
++	fi

@@ -27,14 +27,12 @@ override_dh_auto_clean:
 	-rm -f ltmain.sh
 	-rm -f po/Makefile.in.in
 	-rm -f omf.make
-	-rm -f xmldocs.make
 
 	find -name Makefile.in -delete
 	find -name .cvsignore  -delete
 
 override_dh_auto_configure:
 	ln -sf /usr/share/gnome-common/data/omf.make .
-	ln -sf /usr/share/gnome-common/data/xmldocs.make .
 
 	libtoolize
 	intltoolize
