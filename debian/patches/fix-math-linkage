@@ -1,0 +1,18 @@
+Description: Use -lm when linking the executable
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2015-10-27
+
+Index: gbonds-pkg/src/Makefile.am
+===================================================================
+--- gbonds-pkg.orig/src/Makefile.am	2015-10-27 19:43:10.191748359 -0500
++++ gbonds-pkg/src/Makefile.am	2015-10-27 19:43:41.211924292 -0500
+@@ -69,7 +69,7 @@ gbonds_SOURCES = \
+ 	debug.h				\
+ 	$(BUILT_SOURCES)
+ 
+-gbonds_LDFLAGS = 
++gbonds_LDFLAGS = -lm
+ 
+ gbonds_LDADD =  \
+ 	$(GBONDS_LIBS)			\
