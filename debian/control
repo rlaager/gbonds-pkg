@@ -11,8 +11,8 @@ Vcs-Git: git://github.com/rlaager/gbonds-pkg.git
 Package: gbonds
 Architecture: any
 Depends: gbonds-data (>= ${source:Upstream-Version}), gbonds-data (<< ${source:Upstream-Version}-z), ${shlibs:Depends}, ${misc:Depends}
-Description: U.S. savings bond inventory program for GNOME
- GBonds is a savings bond inventory program for the GNOME desktop environment.
+Description: U.S. Savings Bond inventory program for GNOME
+ GBonds is a Savings Bond inventory program for the GNOME desktop environment.
  It allows you to track the current redemption value and performance of your
  U.S. Savings Bonds and keep a valuable record of the bonds you own.  GBonds is
  similar in functionality to Savings Bond Wizard from the U.S. Department of
