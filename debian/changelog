@@ -34,6 +34,13 @@ gbonds (2.0.3-3) unstable; urgency=low
 
  -- Richard Laager <rlaager@wiktel.com>  Thu, 22 Mar 2012 06:08:39 +0000
 
+gbonds (2.0.3-2.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Link against libm. (Closes: #713637).
+
+ -- Barry deFreese <bdefreese@debian.org>  Sun, 07 Jul 2013 19:19:09 -0400
+
 gbonds (2.0.3-2.1) unstable; urgency=low
 
   * Non-maintainer upload.
