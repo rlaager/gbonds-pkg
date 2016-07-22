@@ -1,3 +1,13 @@
+gbonds (2.0.3-6) unstable; urgency=medium
+
+  * Add redemption data through 05/2016 (sb201512.asc)
+  * Add redemption data through 11/2016 (sb201606.asc)
+  * Stop using GNOME_COMPILE_WARNINGS (Closes: 829997)
+  * Fix dep5-copyright-license-name-not-unique
+  * Use local copy of omf.make (Closes: 831262)
+
+ -- Richard Laager <rlaager@wiktel.com>  Thu, 21 Jul 2016 20:06:09 -0500
+
 gbonds (2.0.3-5) unstable; urgency=medium
 
   * Add a debian/.gitignore
