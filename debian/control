@@ -7,6 +7,7 @@ Build-Depends: debhelper (>= 9), autotools-dev, dpkg-dev (>= 1.16.1), libgtk2.0-
 Standards-Version: 3.9.6
 Vcs-Browser: https://github.com/rlaager/gbonds-pkg
 Vcs-Git: git://github.com/rlaager/gbonds-pkg.git
+Homepage: http://gbonds.sourceforge.net
 
 Package: gbonds
 Architecture: any
@@ -26,7 +27,6 @@ Description: U.S. Savings Bond inventory program for GNOME
    * Tracks current value of both individual bonds and an entire inventory.
 #   * Prints inventories.  It is important to keep a permanent record of your
 #     bonds in a separate location in case you ever need to replace them.
-Homepage: http://gbonds.sourceforge.net
 
 Package: gbonds-data
 Architecture: all
