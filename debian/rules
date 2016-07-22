@@ -26,13 +26,11 @@ override_dh_auto_clean:
 	-rm -f intltool-update.in
 	-rm -f ltmain.sh
 	-rm -f po/Makefile.in.in
-	-rm -f omf.make
 
 	find -name Makefile.in -delete
 	find -name .cvsignore  -delete
 
 override_dh_auto_configure:
-	ln -sf /usr/share/gnome-common/data/omf.make .
 
 	libtoolize
 	intltoolize
