@@ -1,0 +1,16 @@
+Description: Remove outdated GNOME_COMPILE_WARNINGS
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2016-07-21
+
+--- a/configure.in
++++ b/configure.in
+@@ -18,8 +18,6 @@
+ AM_PROG_CC_STDC
+ AC_HEADER_STDC
+ 
+-GNOME_COMPILE_WARNINGS
+-
+ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
+ 
+ dnl *******************************************************************
