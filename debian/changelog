@@ -1,10 +1,17 @@
 gbonds (2.0.3-6) unstable; urgency=medium
 
+  [ Richard Laager ]
   * Add redemption data through 05/2016 (sb201512.asc)
   * Add redemption data through 11/2016 (sb201606.asc)
   * Stop using GNOME_COMPILE_WARNINGS (Closes: 829997)
   * Fix dep5-copyright-license-name-not-unique
   * Use local copy of omf.make (Closes: 831262)
+
+  [ tony mancill ]
+  * Bump Standards-Version to 3.9.8 (no changes).
+  * Add patch for data/gbonds.desktop.in (Desktop Menu Specification 1.1).
+  * Move Homepage: field to source package in debian/control.
+  * Update debian/copyright: years, GPL link, and Debian contributors.
 
  -- Richard Laager <rlaager@wiktel.com>  Thu, 21 Jul 2016 20:06:09 -0500
 
