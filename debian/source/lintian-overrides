@@ -1,2 +1,0 @@
-# debian/rules reruns the autotools.
-gbonds source: ancient-libtool ltmain.sh 1.4.3
