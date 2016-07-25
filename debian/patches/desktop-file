@@ -1,0 +1,21 @@
+Description: update .desktop file for Desktop Menu Specifcation 1.1
+Author: tony mancill <tmancill@debian.org>
+Forwarded: no
+Last-Update: 2016-07-24
+
+--- a/data/gbonds.desktop.in
++++ b/data/gbonds.desktop.in
+@@ -1,11 +1,10 @@
+ [Desktop Entry]
+-Encoding=UTF-8
+ Name=GBonds
+ Comment=Savings Bond Inventory
+ Exec=gbonds %F
+-Icon=gbonds.png
++Icon=gbonds
+ Terminal=false
+ Type=Application
+-Categories=GNOME;Application;Office;
++Categories=GNOME;Office;Finance
+ StartupNotify=true
+ MimeType=application/x-gbonds;
