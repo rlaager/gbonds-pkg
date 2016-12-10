@@ -1,0 +1,15 @@
+Description: Add keywords to the .desktop file
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2016-12-10
+
+--- a/data/gbonds.desktop.in
++++ b/data/gbonds.desktop.in
+@@ -1,6 +1,7 @@
+ [Desktop Entry]
+ Name=GBonds
+ Comment=Savings Bond Inventory
++Keywords=savings;bond;
+ Exec=gbonds %F
+ Icon=gbonds
+ Terminal=false
