@@ -1,3 +1,11 @@
+gbonds (2.0.3-8) unstable; urgency=medium
+
+  * Fix Lintian vcs-field-uses-insecure-uri
+  * Add keywords to the .desktop file
+  * Fix ordering in debian/copyright
+
+ -- Richard Laager <rlaager@wiktel.com>  Sat, 10 Dec 2016 14:20:14 -0600
+
 gbonds (2.0.3-7) unstable; urgency=medium
 
   * Add redemption data through 05/2017 (sb201612.asc)
