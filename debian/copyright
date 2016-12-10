@@ -12,16 +12,16 @@ Copyright: Public Domain, U.S. Treasury
 License: public-domain
  As works of the United States government, these files are public domain.
 
+Files: src/recent-files/*
+Copyright: James Willcox <jwillcox@cs.indiana.edu>
+License: GPL-2+
+
 Files: src/recent-files/egg-recent-util.c
 Comment: This file refers to "/* ripped out of gedit2 */"
  The source file containing this method in gedit2 is gedit/gedit-utils.c.
 Copyright: 1998, 1999 Alex Roberts, Evan Lawrence
            2000, 2002 Chema Celorio, Paolo Maggi 
            2005 Paolo Maggi
-License: GPL-2+
-
-Files: src/recent-files/*
-Copyright: James Willcox <jwillcox@cs.indiana.edu>
 License: GPL-2+
 
 Files: help/*
