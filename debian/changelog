@@ -1,3 +1,9 @@
+gbonds (2.0.3-7) unstable; urgency=medium
+
+  * Add redemption data through 05/2017 (sb201612.asc)
+
+ -- Richard Laager <rlaager@wiktel.com>  Thu, 01 Dec 2016 03:32:45 -0600
+
 gbonds (2.0.3-6) unstable; urgency=medium
 
   [ Richard Laager ]
