@@ -1,3 +1,9 @@
+gbonds (2.0.3-9) unstable; urgency=medium
+
+  * Add redemption data through 11/2017 (sb201706.asc)
+
+ -- Richard Laager <rlaager@wiktel.com>  Tue, 04 Jul 2017 21:38:19 -0500
+
 gbonds (2.0.3-8) unstable; urgency=medium
 
   * Fix Lintian vcs-field-uses-insecure-uri
