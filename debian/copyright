@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: GBonds
 Upstream-Contact: Jim Evins <evins@snaught.com>
 Source: http://gbonds.sourceforge.net/download/
