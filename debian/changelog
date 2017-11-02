@@ -1,3 +1,11 @@
+gbonds (2.0.3-10) unstable; urgency=medium
+
+  * Use https for debian/copyright Format URL
+  * Bump Standards-Version to 4.0.1
+  * Add redemption data through 05/2018 (sb201712.asc)
+
+ -- Richard Laager <rlaager@wiktel.com>  Thu, 02 Nov 2017 02:47:06 -0500
+
 gbonds (2.0.3-9) unstable; urgency=medium
 
   * Add redemption data through 11/2017 (sb201706.asc)
