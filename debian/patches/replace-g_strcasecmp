@@ -1,0 +1,155 @@
+Description: Replace g_strcasecmp
+ g_strcasecmp is deprecated.  I have replaced it with g_ascii_strcasecmp.  In
+ most cases, one side of the comparison is fixed and encoding in ASCII;
+ whether the other side is actually ASCII is irrelevant, as anything non-ASCII
+ can't possibly match anyway.  In one case, filenames were being compared,
+ which have no defined encoding, so there is no perfectly correct solution.
+ Given that we are looking at redemption files, we can assume they are named
+ in ASCII; even if we are wrong, the consequences of a false negative or false
+ positive in that particular function are basically nil.
+ .
+ I also replaced a couple of plain strcasecmp calls, as they have the same
+ issue.  After all, g_strcasecmp is the same as strcasecmp on platforms which
+ have strcasecmp.
+Author: Richard Laager <rlaager@wiktel.com>
+Forwarded: no
+Last-Update: 2017-11-04
+
+--- a/src/doc-sbw.c
++++ b/src/doc-sbw.c
+@@ -238,10 +238,10 @@
+ 			fread (&inter_record, sizeof(gshort), 1, fp);
+ 		}
+ 
+-		if (     (strcasecmp("E", series) == 0)
+-		      || (strcasecmp("S", series) == 0)
+-		      || (strcasecmp("EE", series) == 0)
+-		      || (strcasecmp("I", series) == 0) ) {
++		if (     (g_ascii_strcasecmp("E", series) == 0)
++		      || (g_ascii_strcasecmp("S", series) == 0)
++		      || (g_ascii_strcasecmp("EE", series) == 0)
++		      || (g_ascii_strcasecmp("I", series) == 0) ) {
+ 
+ 			idate_string = gb_date_fmt( info_fixed.idate + SBW4_EPOCH );
+ 			p_bond = gb_doc_bond_new( series,
+--- a/src/doc-xml.c
++++ b/src/doc-xml.c
+@@ -171,8 +171,8 @@
+ 
+ 	*status = GB_OK;
+ 
+-	if ( (g_strcasecmp( (gchar *)root->name, "Bond-List" ) != 0) &&
+-	     (g_strcasecmp( (gchar *)root->name, "Bond-Inventory" ) != 0) ) {
++	if ( (g_ascii_strcasecmp( (gchar *)root->name, "Bond-List" ) != 0) &&
++	     (g_ascii_strcasecmp( (gchar *)root->name, "Bond-Inventory" ) != 0) ) {
+ 		g_warning( _("Bad root node = \"%s\""), root->name );
+ 		*status = GB_ERROR_OPEN_XML_PARSE;
+ 		return NULL;
+@@ -182,14 +182,14 @@
+ 
+ 	for ( node=root->xmlChildrenNode; node!=NULL; node=node->next ) {
+ 
+-		if ( g_strcasecmp( (gchar *)node->name, "Title" ) == 0 ) {
++		if ( g_ascii_strcasecmp( (gchar *)node->name, "Title" ) == 0 ) {
+ 
+ 			title = xmlNodeGetContent( node );
+ 			gb_doc_set_title (doc, (gchar *)title);
+ 			xmlFree (title);
+ 
+ 		}
+-		else if ( g_strcasecmp( (gchar *)node->name, "Bond" ) == 0 ) {
++		else if ( g_ascii_strcasecmp( (gchar *)node->name, "Bond" ) == 0 ) {
+ 
+ 			series = xmlGetProp( node, (xmlChar *)"series" );
+ 			if ( !series || !series[0] ) {
+@@ -242,7 +242,7 @@
+ 
+ 		}
+ 		else {
+-			if ( g_strcasecmp( (gchar *)node->name, "text" ) != 0 ) {
++			if ( g_ascii_strcasecmp( (gchar *)node->name, "text" ) != 0 ) {
+ 				g_warning( _("bad node =  \"%s\""), node->name );
+ 			}
+ 		}
+--- a/src/table-model.c
++++ b/src/table-model.c
+@@ -287,7 +287,7 @@
+ 		
+ 		if ( extension != NULL ) {
+ 
+-			if ( g_strcasecmp( extension, ".asc" ) == 0 ) {
++			if ( g_ascii_strcasecmp( extension, ".asc" ) == 0 ) {
+ 	
+ 				gb_debug (DEBUG_TABLE, "d=\"%s\", f=\"%s\"",
+ 					  dirname, filename);
+--- a/src/update.c
++++ b/src/update.c
+@@ -513,8 +513,8 @@
+ 		info = (GnomeVFSFileInfo *)list->data;
+ 		ext = strrchr( info->name, '.' );
+ 		if ( ext &&
+-		     (g_strcasecmp( ext, ".asc" ) == 0 ) &&
+-		     (strncasecmp( info->name, "sb", 2 ) == 0) ) {
++		     (g_ascii_strcasecmp( ext, ".asc" ) == 0 ) &&
++		     (g_ascii_strncasecmp( info->name, "sb", 2 ) == 0) ) {
+ 			safe_info = gnome_vfs_file_info_dup( info );
+ 			data->list = g_list_prepend( data->list, safe_info );
+ 			data->n++;
+@@ -597,7 +597,11 @@
+ 
+ 		for ( p_remote=remote_list; p_remote != NULL; p_remote=p_remote->next ) {
+ 			remote_info = (GnomeVFSFileInfo *)p_remote->data;
+-			if ( g_strcasecmp( local_info->name, remote_info->name ) == 0 ) {
++			/* Filenames have no guaranteed encoding, but given that we are only
++			 * interested in redemption files, it's safe to assume they are ASCII.
++			 * Even if they are not, a false positive or false negative here is
++			 * unlikely to be a real problem. */
++			if ( g_ascii_strcasecmp( local_info->name, remote_info->name ) == 0 ) {
+ 				remote_list = g_list_remove_link( remote_list, p_remote );
+ 				gnome_vfs_file_info_unref( remote_info );
+ 				p_remote->data = remote_info = NULL;
+@@ -1177,21 +1181,21 @@
+ 		xmlFreeDoc( doc );
+ 		return NULL;
+ 	}
+-	if ( g_strcasecmp( (gchar *)root->name, "Redemption-Data-Sites" ) != 0 ) {
++	if ( g_ascii_strcasecmp( (gchar *)root->name, "Redemption-Data-Sites" ) != 0 ) {
+ 		g_warning( "bad root node = \"%s\"", root->name );
+ 		xmlFreeDoc( doc );
+ 		return NULL;
+ 	}
+ 
+ 	for ( node = root->xmlChildrenNode; node != NULL; node=node->next ) {
+-		if ( g_strcasecmp( (gchar *)node->name, "Site" ) == 0 ) {
++		if ( g_ascii_strcasecmp( (gchar *)node->name, "Site" ) == 0 ) {
+ 			site = g_new0( Site, 1 );
+ 			site->uri  = (gchar *)xmlGetProp( node, (xmlChar *)"uri" );
+ 			site->name = (gchar *)xmlNodeGetContent( node );
+ 			site_list = g_list_append( site_list, site );
+ 		}
+ 		else {
+-			if ( g_strcasecmp( (gchar *)node->name, "text" ) != 0 ) {
++			if ( g_ascii_strcasecmp( (gchar *)node->name, "text" ) != 0 ) {
+ 				g_warning( "bad node =  \"%s\"", node->name );
+ 			}
+ 		}
+--- a/src/util.c
++++ b/src/util.c
+@@ -40,7 +40,7 @@
+ 	if (extension == NULL) {
+ 		new_filename = g_strconcat (orig_filename, ".gbonds", NULL);
+ 	} else {
+-		if (g_strcasecmp (extension, ".gbonds") != 0) {
++		if (g_ascii_strcasecmp (extension, ".gbonds") != 0) {
+ 			new_filename =
+ 			    g_strconcat (orig_filename, ".gbonds", NULL);
+ 		} else {
+@@ -63,7 +63,7 @@
+ 
+ 	extension = strrchr (new_filename, '.');
+ 	if (extension != NULL) {
+-		if (g_strcasecmp (extension, ".gbonds") == 0) {
++		if (g_ascii_strcasecmp (extension, ".gbonds") == 0) {
+ 			*extension = 0; /* truncate string, rm extension */
+ 		}
+ 	}

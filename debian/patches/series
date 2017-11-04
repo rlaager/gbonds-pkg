@@ -13,3 +13,4 @@ xmldocs
 configure-compiler-warnings
 omf
 desktop-file-keywords
+replace-g_strcasecmp
