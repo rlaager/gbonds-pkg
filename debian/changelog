@@ -1,3 +1,10 @@
+gbonds (2.0.3-11) unstable; urgency=medium
+
+  * Re-add gnome-vfs build-dep
+  * Recommend libgnomevfs2-extra
+
+ -- Richard Laager <rlaager@wiktel.com>  Sun, 05 Nov 2017 21:16:21 -0600
+
 gbonds (2.0.3-10) unstable; urgency=medium
 
   [ Richard Laager ]
