@@ -12,6 +12,7 @@ Homepage: http://gbonds.sourceforge.net
 Package: gbonds
 Architecture: any
 Depends: gbonds-data (>= ${source:Upstream-Version}), gbonds-data (<< ${source:Upstream-Version}-z), ${shlibs:Depends}, ${misc:Depends}
+Recommends: libgnomevfs2-extra
 Description: U.S. Savings Bond inventory program for GNOME
  GBonds is a Savings Bond inventory program for the GNOME desktop environment.
  It allows you to track the current redemption value and performance of your
