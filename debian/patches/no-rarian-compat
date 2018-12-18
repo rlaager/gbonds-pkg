@@ -1,0 +1,19 @@
+Description: Do not install the .omf file.
+ This makes it possible to remove rarian-compat as build-dependency.
+Bug-Debian: https://bugs.debian.org/885638
+Author: Yavor Doganov <yavor@gnu.org>
+Forwarded: no
+Last-Update: 2018-10-08
+---
+
+--- gbonds-pkg.orig/help/C/Makefile.am
++++ gbonds-pkg/help/C/Makefile.am
+@@ -1,7 +1,7 @@
+ figdir = figures
+ docname = gbonds
+ lang = C
+-omffile = gbonds-C.omf
++omffile =
+ entities =
+ 
+ include $(top_srcdir)/xmldocs.make
