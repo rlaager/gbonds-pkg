@@ -1,5 +1,0 @@
-Printing functionality has been removed in the current Debian package
-in order to meet the squeeze release goal of removing libgnomeprint.
-
-This functionality will be restored once the upstream version has been
-ported or a patch is available for Cairo/GtkPrint.

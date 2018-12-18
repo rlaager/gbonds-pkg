@@ -2,7 +2,6 @@ desktop-file
 POTFILES
 POTFILES.missing
 download-sites
-libgnomeprint
 commands-compile
 egg-recent-model-compile
 gbonds-name-case
@@ -14,3 +13,4 @@ configure-compiler-warnings
 omf
 desktop-file-keywords
 replace-g_strcasecmp
+gtk3-port
