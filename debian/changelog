@@ -1,3 +1,17 @@
+gbonds (2.0.3-12) unstable; urgency=medium
+
+  [ Richard Laager ]
+  * Update Standards-Version to 4.2.1 (no changes)
+  * Add redemption data through 05/2019 (sb201812.asc)
+
+  [ Yavor Doganov ]
+  * Port to GTK+ 3 and GIO (Closes: 868413)
+  * Port to GSettings (Closes: 886080)
+  * Get rid of rarian-compat B-D (Closes: 885638)
+  * Remove gnome-common B-D
+
+ -- Richard Laager <rlaager@wiktel.com>  Tue, 18 Dec 2018 14:25:57 -0600
+
 gbonds (2.0.3-11) unstable; urgency=medium
 
   * Re-add gnome-vfs build-dep
