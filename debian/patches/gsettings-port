@@ -1,0 +1,640 @@
+Description: Port to GSettings.
+Bug-Debian: https://bugs.debian.org/886080
+Author: Yavor Doganov <yavor@gnu.org>
+Forwarded: no
+Last-Update: 2018-10-28
+---
+
+
+--- gbonds-pkg.orig/configure.in
++++ gbonds-pkg/configure.in
+@@ -30,7 +30,6 @@
+ LIBGNOMEPRINTUI_REQUIRED=2.2.0
+                
+ PKG_CHECK_MODULES(GBONDS, gtk+-3.0 >= $GTK_REQUIRED \
+-gconf-2.0 \
+ libxml-2.0 >= $LIBXML_REQUIRED \
+ )
+ 
+@@ -55,6 +54,8 @@
+ AC_SUBST(GETTEXT_PACKAGE)
+ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Gettext package])
+ 
++GLIB_GSETTINGS
++
+ dnl Add the languages which your application supports here.
+ ALL_LINGUAS=""
+ AM_GLIB_GNU_GETTEXT
+--- gbonds-pkg.orig/src/ui.c
++++ gbonds-pkg/src/ui.c
+@@ -21,8 +21,6 @@
+  */
+ #include <config.h>
+ 
+-#include <gconf/gconf-client.h>
+-
+ #include "ui.h"
+ #include "commands.h"
+ #include "recent.h" 
+@@ -427,10 +425,10 @@
+ static void
+ set_app_main_toolbar_style (GtkBuilder *ui_component)
+ {
+-	GConfClient *client;
++	GtkSettings *settings;
+ 	GtkWidget   *widget;
+ 	GtkCheckMenuItem *item;
+-	gboolean     labels;
++	GtkToolbarStyle   style;
+ 
+ 	gb_debug (DEBUG_UI, "START");
+ 
+@@ -457,35 +455,18 @@
+ 	{
+ 		case GB_TOOLBAR_SYSTEM:
+ 						
+-			client = gconf_client_get_default ();
+-			if (client == NULL) 
++			settings = gtk_settings_get_default ();
++			if (!settings)
+ 				return;
+ 
+-			labels = gconf_client_get_bool (client, 
+-					"/desktop/gnome/interface/toolbar-labels", NULL);
+-
+-			g_object_unref (G_OBJECT (client));
++	                g_object_get (settings, "gtk-toolbar-style",
++	                              &style, NULL);
+ 	                item = GTK_CHECK_MENU_ITEM (gtk_builder_get_object
+ 	                                            (ui_component,
+ 	                                             "MainToolbarSystem"));
+-			
+-			if (labels)
+-			{			
+-	                        gtk_toolbar_set_style (GTK_TOOLBAR (widget),
+-	                                               GTK_TOOLBAR_BOTH);
+-	                        if (!gtk_check_menu_item_get_active (item))
+-	                                gtk_check_menu_item_set_active (item,
+-	                                                                TRUE);
+-			
+-			}
+-			else
+-			{
+-	                        gtk_toolbar_set_style (GTK_TOOLBAR (widget),
+-	                                               GTK_TOOLBAR_ICONS);
+-	                        if (!gtk_check_menu_item_get_active (item))
+-	                                gtk_check_menu_item_set_active (item,
+-	                                                                TRUE);
+-			}
++	                gtk_toolbar_set_style (GTK_TOOLBAR (widget), style);
++	                if (!gtk_check_menu_item_get_active (item))
++	                        gtk_check_menu_item_set_active (item, TRUE);
+ 	
+ 			break;
+ 			
+--- gbonds-pkg.orig/data/Makefile.am
++++ gbonds-pkg/data/Makefile.am
+@@ -27,6 +27,15 @@
+ newmimedir = $(datadir)/mime/packages
+ newmime_DATA = $(xml_files)
+ 
++gsettings_SCHEMAS = net.sf.GBonds.gschema.xml
++gsettings_ENUM_NAMESPACE = net.sf.GBonds
++gsettings_ENUM_FILES = $(top_srcdir)/src/prefs.h
++
++@GSETTINGS_RULES@
++
++data_convertdir = $(datadir)/GConf/gsettings
++dist_data_convert_DATA = gbonds.convert
++
+ redemptiondir = $(datadir)/gbonds
+ redemption_DATA = \
+ 	download-sites.xml \
+@@ -72,6 +81,7 @@
+ 	$(mime_DATA)            \
+ 	$(app_DATA)		\
+ 	$(xml_in_files)		\
++	$(gsettings_SCHEMAS)    \
+ 	$(redemption_DATA)
+ 
+ install-data-hook:
+--- /dev/null
++++ gbonds-pkg/data/net.sf.GBonds.gschema.xml
+@@ -0,0 +1,36 @@
++<schemalist gettext-domain="gbonds">
++  <schema id="net.sf.GBonds" path="/net/sf/gbonds/">
++    <key name="startup-action" enum="net.sf.GBonds.gbPrefsStartupAction">
++      <default>'blank'</default>
++      <summary>Default action on startup.</summary>
++    </key>
++    <key name="startup-file" type="s">
++      <default>''</default>
++      <summary>Default file to open on startup.</summary>
++      <description>The file will be opened only if "startup-action" is
++      set to "default".</description>
++    </key>
++    <key name="rdate-range" enum="net.sf.GBonds.gbPrefsRdateRange">
++      <default>'year'</default>
++      <summary>Redemption dates to use.</summary>
++      <description>If set to "all", the program uses all available data.
++      If set to "year", redemption dates will be limited to one year
++      (the last twelve months).</description>
++    </key>
++    <key name="main-toolbar-visible" type="b">
++      <default>true</default>
++      <summary>Visibility of the application toolbar.</summary>
++      <description>If set to "false", the toolbar will be
++      hidden.</description>
++    </key>
++    <key name="main-toolbar-buttons-style"
++         enum="net.sf.GBonds.gbToolbarSetting">
++      <default>'system'</default>
++      <summary>Style of the application toolbar.</summary>
++    </key>
++    <key name="max-recents" type="i">
++      <default>4</default>
++      <summary>Maximum number of recent files.</summary>
++    </key>
++  </schema>
++</schemalist>
+--- gbonds-pkg.orig/po/POTFILES.in
++++ gbonds-pkg/po/POTFILES.in
+@@ -1,6 +1,7 @@
+ # List of source files containing translatable strings.
+ data/gbonds.keys.in
+ data/gbonds.xml.in
++[type: gettext/gsettings]data/net.sf.GBonds.gschema.xml
+ src/commands.c
+ src/doc-sbw.c
+ src/doc-xml.c
+@@ -10,6 +11,7 @@
+ src/gbonds.c
+ src/gbonds.ui
+ src/hig.c
++src/prefs.c
+ src/prefs-dialog.c
+ src/print-dialog.c
+ src/print.c
+--- gbonds-pkg.orig/src/prefs.c
++++ gbonds-pkg/src/prefs.c
+@@ -20,7 +20,8 @@
+  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+  */
+ 
+-#include <gconf/gconf-client.h>
++#include <glib/gi18n.h>
++#include <gio/gio.h>
+ 
+ #include "prefs.h"
+ 
+@@ -33,18 +34,15 @@
+ /*========================================================*/
+ 
+ /* GConf keys */
+-#define BASE_KEY                            "/apps/gbonds"
++#define PREF_STARTUP_ACTION                 "startup-action"
++#define PREF_STARTUP_FILE                   "startup-file"
+ 
+-#define PREF_STARTUP_ACTION                 "/startup-action"
+-#define PREF_STARTUP_FILE                   "/startup-file"
++#define PREF_RDATE_RANGE                    "rdate-range"
+ 
+-#define PREF_RDATE_RANGE                    "/rdate-range"
++#define PREF_MAIN_TOOLBAR_VISIBLE           "main-toolbar-visible"
++#define PREF_MAIN_TOOLBAR_BUTTONS_STYLE     "main-toolbar-buttons-style"
+ 
+-#define PREF_MAIN_TOOLBAR_VISIBLE           "/main-toolbar-visible"
+-#define PREF_MAIN_TOOLBAR_BUTTONS_STYLE     "/main-toolbar-buttons-style"
+-#define PREF_MAIN_TOOLBAR_VIEW_TOOLTIPS     "/main-toolbar-view-tooltips"
+-
+-#define PREF_MAX_RECENTS                    "/max-recents"
++#define PREF_MAX_RECENTS                    "max-recents"
+ 
+ /*========================================================*/
+ /* Private types.                                         */
+@@ -54,21 +52,16 @@
+ /*========================================================*/
+ /* Private globals.                                       */
+ /*========================================================*/
+-static GConfClient *gconf_client = NULL;
++static GSettings *settings = NULL;
+ 
+ /*========================================================*/
+ /* Private function prototypes.                           */
+ /*========================================================*/
+ 
+-static void notify_cb (GConfClient *client,
+-		       guint cnxn_id,
+-		       GConfEntry *entry,
++static void notify_cb (GSettings *settings,
++		       gchar     *key,
+ 		       gpointer user_data);
+ 
+-static gchar *get_string (GConfClient* client, const gchar* key, const gchar* def);
+-static gboolean get_bool (GConfClient* client, const gchar* key, gboolean def);
+-static gint get_int (GConfClient* client, const gchar* key, gint def);
+-
+ 
+ /*****************************************************************************/
+ /* Initialize preferences module.                                            */
+@@ -78,19 +71,9 @@
+ {
+ 	gb_debug (DEBUG_PREFS, "");
+ 
+-	gconf_client = gconf_client_get_default ();
+-	
+-	g_return_if_fail (gconf_client != NULL);
+-
+-	gconf_client_add_dir (gconf_client,
+-			      BASE_KEY,
+-			      GCONF_CLIENT_PRELOAD_ONELEVEL,
+-			      NULL);
++	settings = g_settings_new ("net.sf.GBonds");
+ 	
+-	gconf_client_notify_add (gconf_client,
+-				 BASE_KEY,
+-				 notify_cb,
+-				 NULL, NULL, NULL);
++	g_signal_connect (settings, "changed", G_CALLBACK (notify_cb), NULL);
+ }
+ 
+ 
+@@ -102,210 +85,160 @@
+ {
+ 	gb_debug (DEBUG_PREFS, "START");
+ 	
+-	g_return_if_fail (gconf_client != NULL);
++	g_return_if_fail (settings != NULL);
+ 	g_return_if_fail (gb_prefs != NULL);
+ 
++	/* Apply all changes at once.  */
++	g_settings_delay (settings);
+ 
+ 	/* Startup action */
+-	gconf_client_set_int (gconf_client,
+-			      BASE_KEY PREF_STARTUP_ACTION,
+-			      gb_prefs->startup_action,
+-			      NULL);
++	g_settings_set_enum (settings,
++			     PREF_STARTUP_ACTION,
++	                     gb_prefs->startup_action);
+ 	if (gb_prefs->startup_file) {
+-		gconf_client_set_string (gconf_client,
+-					 BASE_KEY PREF_STARTUP_FILE,
+-					 gb_prefs->startup_file,
+-					 NULL);
++	        g_settings_set_string (settings,
++				       PREF_STARTUP_FILE,
++	                               gb_prefs->startup_file);
+ 	}
+ 
+ 	/* Rdate range */
+-	gconf_client_set_int (gconf_client,
+-			      BASE_KEY PREF_RDATE_RANGE,
+-			      gb_prefs->rdate_range,
+-			      NULL);
++	g_settings_set_enum (settings,
++			     PREF_RDATE_RANGE,
++	                     gb_prefs->rdate_range);
+ 
+ 	/* Main Toolbar */
+-	gconf_client_set_bool (gconf_client,
+-			       BASE_KEY PREF_MAIN_TOOLBAR_VISIBLE,
+-			       gb_prefs->main_toolbar_visible,
+-			       NULL);
+-
+-	gconf_client_set_int (gconf_client,
+-			      BASE_KEY PREF_MAIN_TOOLBAR_BUTTONS_STYLE,
+-			      gb_prefs->main_toolbar_buttons_style,
+-			      NULL);
+-
+-	gconf_client_set_bool (gconf_client,
+-			       BASE_KEY PREF_MAIN_TOOLBAR_VIEW_TOOLTIPS,
+-			       gb_prefs->main_toolbar_view_tooltips,
+-			       NULL);
++	g_settings_set_boolean (settings,
++			        PREF_MAIN_TOOLBAR_VISIBLE,
++	                        gb_prefs->main_toolbar_visible);
++
++	g_settings_set_enum (settings,
++			     PREF_MAIN_TOOLBAR_BUTTONS_STYLE,
++	                     gb_prefs->main_toolbar_buttons_style);
+ 
+ 	/* Recent files */
+-	gconf_client_set_int (gconf_client,
+-			      BASE_KEY PREF_MAX_RECENTS,
+-			      gb_prefs->max_recents,
+-			      NULL);
++	g_settings_set_int (settings,
++			    PREF_MAX_RECENTS,
++	                    gb_prefs->max_recents);
+ 
+-
+-	gconf_client_suggest_sync (gconf_client, NULL);
++	g_settings_apply (settings);
+ 	
+ 	gb_debug (DEBUG_PREFS, "END");
+ }
+ 
+ /*****************************************************************************/
++/* PRIVATE.  Migrate old GConf settings to GSettings.                        */
++/*****************************************************************************/
++static gchar *
++migrate_gconf_settings (const gchar *name)
++{
++	gboolean  needed = TRUE;
++	GError   *error = NULL;
++	GKeyFile *kf;
++	gchar   **list;
++	gchar    *msg = NULL;
++	gsize     i, n;
++
++	kf = g_key_file_new ();
++
++	if (!g_key_file_load_from_data_dirs (kf, "gsettings-data-convert",
++	                                     NULL, G_KEY_FILE_NONE, NULL)) {
++	        g_key_file_free (kf);
++	        return NULL;
++	}
++	list = g_key_file_get_string_list (kf, "State", "converted", &n, NULL);
++
++	if (list) {
++	        for (i = 0; i < n; i++)
++	                if (!g_strcmp0 (list[i], name)) {
++	                        needed = FALSE;
++	                        break;
++	                }
++	        g_strfreev (list);
++	}
++	g_key_file_free (kf);
++
++	if (needed) {
++	        g_spawn_command_line_sync ("gsettings-data-convert",
++	                                   NULL, NULL, NULL, &error);
++	        if (error) {
++	                if (!g_error_matches (error, G_SPAWN_ERROR,
++	                                      G_SPAWN_ERROR_NOENT))
++	                        msg = g_strdup_printf (
++	                          _("Could not migrate old GConf settings: %s\n"
++	                            "Please make sure that GConf is installed "
++	                            "and the gsettings-data-convert tool is in "
++	                            "your PATH.\nAlternatively, ignore this "
++	                            "message and convert your old settings "
++	                            "manually."), error->message);
++	                g_error_free (error);
++	        } else {
++	                msg = g_strdup (_("Old GConf settings were either "
++	                                  "missing or migrated successfully."));
++
++	                /* Allow some time for the GSettings backend
++	                   to record the changes, otherwise the
++	                   default values from the new schema might be
++	                   set.  */
++	                sleep (1);
++	        }
++	}
++
++	return msg;
++}
++
++/*****************************************************************************/
+ /* Load all settings.                                                        */
+ /*****************************************************************************/
+-void
++gchar *
+ gb_prefs_load_settings (void)
+ {
++	gchar *migration_msg = NULL;
++
+ 	gb_debug (DEBUG_PREFS, "START");
+ 	
+ 	if (gb_prefs == NULL)
+ 		gb_prefs = g_new0 (gbPrefs, 1);
+ 
+-	if (gconf_client == NULL)
+-	{
+-		/* TODO: in any case set default values */
+-		g_warning ("Cannot load settings.");
+-		return;
+-	}
+-
++	migration_msg = migrate_gconf_settings ("gbonds.convert");
+ 
+ 	/* Startup action */
+ 	gb_prefs->startup_action =
+-		get_int (gconf_client,
+-			 BASE_KEY PREF_STARTUP_ACTION,
+-			 GB_PREFS_STARTUP_BLANK);
++	        g_settings_get_enum (settings, PREF_STARTUP_ACTION);
+ 
+ 	gb_prefs->startup_file =
+-		get_string (gconf_client,
+-			    BASE_KEY PREF_STARTUP_FILE,
+-			    NULL);
++	        g_settings_get_string (settings, PREF_STARTUP_FILE);
+ 
+ 	/* Rdate range */
+ 	gb_prefs->rdate_range =
+-		get_int (gconf_client,
+-			 BASE_KEY PREF_RDATE_RANGE,
+-			 GB_PREFS_RDATE_RANGE_YEAR);
++	        g_settings_get_enum (settings, PREF_RDATE_RANGE);
+ 
+ 	/* User Inferface/Main Toolbar */
+ 	gb_prefs->main_toolbar_visible =
+-		get_bool (gconf_client,
+-			  BASE_KEY PREF_MAIN_TOOLBAR_VISIBLE,
+-			  TRUE);
++	        g_settings_get_boolean (settings, PREF_MAIN_TOOLBAR_VISIBLE);
+ 
+ 	gb_prefs->main_toolbar_buttons_style =
+-		get_int (gconf_client,
+-			 BASE_KEY PREF_MAIN_TOOLBAR_BUTTONS_STYLE,
+-			 GB_TOOLBAR_SYSTEM);
+-
+-	gb_prefs->main_toolbar_view_tooltips =
+-		get_bool (gconf_client,
+-			  BASE_KEY PREF_MAIN_TOOLBAR_VIEW_TOOLTIPS,
+-			  TRUE);
++	        g_settings_get_enum (settings, PREF_MAIN_TOOLBAR_BUTTONS_STYLE);
+ 
+ 	/* Recent files */
+ 	gb_prefs->max_recents =
+-		get_int (gconf_client,
+-			 BASE_KEY PREF_MAX_RECENTS,
+-			 4);
++	        g_settings_get_int (settings, PREF_MAX_RECENTS);
+ 
+ 
+ 	gb_debug (DEBUG_PREFS, "max_recents = %d", gb_prefs->max_recents);
+ 
+ 	gb_debug (DEBUG_PREFS, "END");
++
++	return migration_msg;
+ }
+ 
+ /*---------------------------------------------------------------------------*/
+ /* PRIVATE.  Key changed callback.                                           */
+ /*---------------------------------------------------------------------------*/
+ static void 
+-notify_cb (GConfClient *client,
+-	   guint cnxn_id,
+-	   GConfEntry *entry,
++notify_cb (GSettings *settings,
++	   gchar     *key,
+ 	   gpointer user_data)
+ {
+-	gb_debug (DEBUG_PREFS, "Key was changed: %s", entry->key);
+-}
+-
+-/*---------------------------------------------------------------------------*/
+-/* PRIVATE.  Utilities to get values with defaults.                          */
+-/*---------------------------------------------------------------------------*/
+-static gchar*
+-get_string (GConfClient* client,
+-	    const gchar* key,
+-	    const gchar* def)
+-{
+-  gchar* val;
+-
+-  val = gconf_client_get_string (client, key, NULL);
+-
+-  if (val != NULL) {
+-
+-      return val;
+-
+-  } else {
+-
+-      return def ? g_strdup (def) : NULL;
+-
+-  }
+-}
+-
+-static gboolean
+-get_bool (GConfClient* client,
+-	  const gchar* key,
+-	  gboolean def)
+-{
+-  GConfValue* val;
+-  gboolean retval;
+-
+-  val = gconf_client_get (client, key, NULL);
+-
+-  if (val != NULL) {
+-
+-	  if ( val->type == GCONF_VALUE_BOOL ) {
+-		  retval = gconf_value_get_bool (val);
+-	  } else {
+-		  retval = def;
+-	  }
+-
+-	  gconf_value_free (val);
+-
+-	  return retval;
+-
+-  } else {
+-
+-      return def;
+-
+-  }
+-}
+-
+-static gint
+-get_int (GConfClient* client,
+-	 const gchar* key,
+-	 gint def)
+-{
+-  GConfValue* val;
+-  gint retval;
+-
+-  val = gconf_client_get (client, key, NULL);
+-
+-  if (val != NULL) {
+-
+-	  if ( val->type == GCONF_VALUE_INT) {
+-		  retval = gconf_value_get_int(val);
+-	  } else {
+-		  retval = def;
+-	  }
+-
+-	  gconf_value_free (val);
+-
+-	  return retval;
+-
+-  } else {
+-
+-	  return def;
+-
+-  }
++	gb_debug (DEBUG_PREFS, "Key was changed: %s", key);
+ }
+ 
+--- gbonds-pkg.orig/src/prefs.h
++++ gbonds-pkg/src/prefs.h
+@@ -54,7 +54,6 @@
+ 	/* User Interface/Main Toolbar */
+ 	gboolean	      main_toolbar_visible;
+ 	gbToolbarSetting      main_toolbar_buttons_style; 
+-	gboolean	      main_toolbar_view_tooltips;
+ 
+ 	/* Recent files */
+ 	gint                  max_recents;
+@@ -66,7 +65,7 @@
+ 
+ void          gb_prefs_save_settings       (void);
+ 
+-void          gb_prefs_load_settings       (void);
++gchar *       gb_prefs_load_settings       (void);
+ 
+ void          gb_prefs_init                (void);
+ 
+--- /dev/null
++++ gbonds-pkg/data/gbonds.convert
+@@ -0,0 +1,7 @@
++[net.sf.GBonds]
++startup-action = /apps/gbonds/startup-action
++startup-file = /apps/gbonds/startup-file
++rdate-range = /apps/gbonds/rdate-range
++main-toolbar-visible = /apps/gbonds/main-toolbar-visible
++main-toolbar-buttons-style = /apps/gbonds/main-toolbar-buttons-style
++max-recents = /apps/gbonds/max-recents
+--- gbonds-pkg.orig/src/gbonds.c
++++ gbonds-pkg/src/gbonds.c
+@@ -63,6 +63,7 @@
+ 	gchar	      *utf8_filename;
+ 	GList         *dates;
+ 	gbTableModel  *table_model;
++	gchar         *gconf_migration = NULL;
+ 
+ 	bindtextdomain (GETTEXT_PACKAGE, GBONDS_LOCALEDIR);
+         bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+@@ -105,7 +106,7 @@
+         /* Load user preferences */
+ 	gb_debug_init ();
+         gb_prefs_init ();
+-        gb_prefs_load_settings ();
++        gconf_migration = gb_prefs_load_settings ();
+ 	gb_recent_init ();
+ 	gb_table_init ();
+ 
+@@ -210,6 +211,20 @@
+ 
+ 	g_list_free (file_list);
+ 
++	if (gconf_migration) {
++	        GtkWidget *dlg;
++
++	        dlg = gb_hig_alert_new (GTK_WINDOW (win),
++	                                GTK_DIALOG_DESTROY_WITH_PARENT,
++	                                GTK_MESSAGE_INFO,
++	                                GTK_BUTTONS_CLOSE,
++	                                _("GConf Migration"),
++	                                gconf_migration);
++	        gtk_dialog_run (GTK_DIALOG (dlg));
++	        gtk_widget_destroy (dlg);
++	        g_free (gconf_migration);
++	}
++
+ 	/* If our redemption data is about to expire, or has expired, help the user
+ 	   download new data. */
+ 	if (gb_table_model_get_rdate_today()>=gb_table_model_get_rdate_max(table_model)) {

@@ -14,3 +14,4 @@ omf
 desktop-file-keywords
 replace-g_strcasecmp
 gtk3-port
+gsettings-port
